@@ -10,9 +10,9 @@
 
 ## 📌 Ringkasan Proyek
 
-Proyek ini merupakan **Virtual Lab Interaktif JST** berbasis web (*single-page application*) yang dikembangkan untuk memenuhi tugas praktikum Jaringan Saraf Tiruan. Aplikasi ini mengalihkan paradigma simulasi klasik (yang umumnya hanya mendemokan gerbang logika biner 2-input `AND`/`OR`) menjadi **laboratorium pelatihan dan evaluasi JST pada data tabular nyata** menggunakan dataset kelulusan mahasiswa ([`dataset_mahasiswa.csv`](./dataset_mahasiswa.csv)) serta mendukung pengunggahan file CSV bebas dari Kaggle/UCI.
+Proyek ini merupakan **Virtual Lab Interaktif JST** berbasis web (*single-page application*) yang dikembangkan untuk memenuhi tugas Artificial Intelligence. Aplikasi ini mengalihkan paradigma simulasi klasik (yang umumnya hanya mendemokan gerbang logika biner 2-input `AND`/`OR`) menjadi **laboratorium pelatihan dan evaluasi JST pada data tabular nyata** menggunakan dataset kelulusan mahasiswa ([`dataset_mahasiswa.csv`](./dataset_mahasiswa.csv)) serta mendukung pengunggahan file CSV bebas dari Kaggle/UCI.
 
-Antarmuka dirancang dengan standar desain **Minimalist Swiss & Academic Workbench (`ui-ux-pro-max`)**, mengutamakan kenyamanan visual, hierarki fungsional yang tenang (*anti-AI slop*), responsivitas penuh (Mobile, Tablet, Laptop), serta dukungan tema **Light Mode (*Warm Paper*)** dan **Dark Mode (*Carbon Slate*)**.
+Antarmuka dirancang dengan standar desain **Minimalist Swiss & Academic Workbench**, mengutamakan kenyamanan visual, hierarki fungsional yang tenang, responsivitas penuh (Mobile, Tablet, Laptop), serta dukungan tema **Light Mode (*Warm Paper*)** dan **Dark Mode (*Carbon Slate*)**.
 
 ---
 
