@@ -114,5 +114,6 @@ virtual_lab_jst_mahasiswa/
 
 ## 📜 Lisensi & Atribusi
 Dikembangkan oleh **Muhammad Nailul Ghufron Majid** untuk keperluan akademik dan edukasi pembelajaran Jaringan Saraf Tiruan. Bebas digunakan dan dimodifikasi untuk tujuan pembelajaran.
-#   v i r t u a l _ l a b _ j s t _ m a h a s i s w a  
- 
+#   v i r t u a l _ l a b _ j s t _ m a h a s i s w a 
+ 
+ 
