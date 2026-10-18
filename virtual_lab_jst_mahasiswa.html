@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Virtual Lab JST — Supervised Learning & Evaluasi Dataset</title>
+    <!-- Tailwind CSS with Dark Mode -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Plus Jakarta Sans, Crimson Pro, Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Crimson Pro', 'serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f9',
+                            100: '#d9e4f1',
+                            600: '#254a78',
+                            700: '#1E3A5F',
+                            800: '#162b47',
+                            900: '#0f1e32'
+                        },
+                        dark: {
+                            canvas: '#0B0F17',
+                            surface: '#111827',
+                            subtle: '#161F30',
+                            border: '#1F293D',
+                            borderSubtle: '#26334D',
+                            text: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-bg: #F8FAFC;
+            --color-surface: #FFFFFF;
+            --color-muted: #F1F5F9;
+            --color-border: #E2E8F0;
+            --color-text-main: #0F172A;
+            --color-text-muted: #475569;
+            --color-primary: #1E3A5F;
+            --color-positive: #059669;
+            --color-negative: #E11D48;
+        }
+        .dark {
+            --color-bg: #0B0F17;
+            --color-surface: #111827;
+            --color-muted: #161F30;
+            --color-border: #222F46;
+            --color-text-main: #F8FAFC;
+            --color-text-muted: #94A3B8;
+            --color-primary: #38BDF8;
+            --color-positive: #34D399;
+            --color-negative: #FB7185;
+        }
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .tnum {
+            font-variant-numeric: tabular-nums;
+        }
+        .card-surface {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: var(--color-muted);
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+            border-radius: 4px;
+        }
+        .dark .custom-scroll::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500/20 selection:text-sky-600 dark:selection:text-sky-300">
+
+    <!-- =========================================================================
+         TOP ADAPTIVE HEADER (Responsive Mobile, Tablet & Laptop with Dark Mode)
+         ========================================================================= -->
+    <header class="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <!-- Top Bar: Brand + Telemetry + Action Toggles -->
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+            
+            <!-- Left: Logo & Title -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 dark:from-sky-500 dark:to-blue-700 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="6" cy="6" r="2.25"/>
+                        <circle cx="6" cy="12" r="2.25"/>
+                        <circle cx="6" cy="18" r="2.25"/>
+                        <circle cx="18" cy="12" r="2.75"/>
+                        <path stroke-linecap="round" d="M8.25 6.5L15.5 11M8.25 12h7M8.25 17.5L15.5 13"/>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-sm sm:text-base md:text-lg font-bold text-slate-900 dark:text-white tracking-tight truncate">Virtual Lab JST</h1>
+                        <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">Supervised Learning</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span>
+                        <span id="hdr-active-file">dataset_mahasiswa.csv</span> • 4 Algoritma
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Telemetry (Desktop/Tablet) + Toggles + Theme Switcher -->
+            <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                
+                <!-- Live Telemetry Capsule (Tablet & Desktop md+) -->
+                <div class="hidden md:flex items-center gap-3.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-xs">
+                    <div>
+                        <span class="text-slate-400 dark:text-slate-400">Valid:</span>
+                        <span id="hdr-valid-count" class="font-mono font-semibold text-slate-800 dark:text-slate-100 tnum ml-1">0</span>
+                    </div>
+                    <span class="text-slate-300 dark:text-slate-600">|</span>
+                    <div>
+                        <span class="text-slate-400 dark:text-slate-400">Epoch:</span>
+                        <span id="hdr-epoch" class="font-mono font-semibold text-navy-700 dark:text-sky-400 tnum ml-1">0/30</span>
+                    </div>
+                    <span class="text-slate-300 dark:text-slate-600">|</span>
+                    <div>
+                        <span class="text-slate-400 dark:text-slate-400">Akurasi Uji:</span>
+                        <span id="hdr-test-acc" class="font-mono font-semibold text-emerald-600 dark:text-emerald-400 tnum ml-1">0.0%</span>
+                    </div>
+                </div>
+
+                <!-- Dark / Light Mode Switcher -->
+                <button type="button" onclick="toggleTheme()" id="btn-theme-toggle" class="p-2 sm:px-3 sm:py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-slate-700 dark:text-slate-200 text-xs font-medium transition cursor-pointer flex items-center gap-1.5 shadow-xs" title="Ganti Mode Terang / Gelap (Dark Mode)">
+                    <span id="theme-icon-container">
+                        <!-- Sun Icon for Light Mode -->
+                        <svg id="theme-icon-sun" class="w-4 h-4 text-amber-500 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+                        </svg>
+                        <!-- Moon Icon for Dark Mode -->
+                        <svg id="theme-icon-moon" class="w-4 h-4 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+                        </svg>
+                    </span>
+                    <span id="lbl-theme" class="hidden sm:inline">Tema</span>
+                </button>
+
+                <!-- View Mode: Fokus vs Semua Tahap -->
+                <button type="button" onclick="toggleViewMode()" id="btn-view-mode" class="p-2 sm:px-3 sm:py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-slate-700 dark:text-slate-200 text-xs font-medium transition cursor-pointer flex items-center gap-1.5 shadow-xs" title="Ganti antara Mode Semua Tahap dan Mode Fokus">
+                    <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/>
+                    </svg>
+                    <span id="lbl-view-mode" class="hidden sm:inline">Semua Tahap</span>
+                </button>
+
+                <!-- Panduan Teori -->
+                <button type="button" onclick="openTheoryModal()" class="p-2 sm:px-3 sm:py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-slate-700 dark:text-slate-200 text-xs font-medium transition cursor-pointer flex items-center gap-1.5 shadow-xs">
+                    <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                    </svg>
+                    <span class="hidden sm:inline">Rumus</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Lower Navigation Bar: Responsive Stepper for Mobile, Tablet, and Desktop -->
+        <div class="bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/80 dark:border-slate-800 px-3 sm:px-6 lg:px-8 py-1.5 transition-colors">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                
+                <!-- Stepper Buttons (Responsive Grid on Mobile, Flex on sm+) -->
+                <nav class="grid grid-cols-3 sm:flex items-center gap-1 sm:space-x-1 w-full sm:w-auto" aria-label="Tahapan Praktikum">
+                    <button type="button" onclick="goToStage(1)" id="nav-stage-1" class="stage-tab px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center sm:justify-start gap-1.5 cursor-pointer bg-navy-700 dark:bg-sky-500 text-white shadow-xs">
+                        <span class="font-mono text-[11px] opacity-80">01</span>
+                        <span class="truncate">Dataset</span>
+                    </button>
+                    <button type="button" onclick="goToStage(2)" id="nav-stage-2" class="stage-tab px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center sm:justify-start gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800">
+                        <span class="font-mono text-[11px] opacity-75">02</span>
+                        <span class="truncate">Pelatihan</span>
+                    </button>
+                    <button type="button" onclick="goToStage(3)" id="nav-stage-3" class="stage-tab px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center sm:justify-start gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800">
+                        <span class="font-mono text-[11px] opacity-75">03</span>
+                        <span class="truncate">Pengujian</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Quick Status Strip (Visible on mobile screens <768px) -->
+                <div class="flex md:hidden items-center justify-between px-2 py-1 rounded bg-slate-100 dark:bg-slate-800/80 text-[10px] text-slate-600 dark:text-slate-300 font-mono tnum">
+                    <span>Valid: <b id="mob-valid-count" class="text-slate-900 dark:text-white">0</b></span>
+                    <span>•</span>
+                    <span>Epoch: <b id="mob-epoch" class="text-navy-700 dark:text-sky-400">0/30</b></span>
+                    <span>•</span>
+                    <span>Akurasi Uji: <b id="mob-test-acc" class="text-emerald-600 dark:text-emerald-400">0.0%</b></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WORKBENCH CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-6 space-y-6 sm:space-y-8">
+
+        <!-- =========================================================================
+             STAGE 1: DATASET & PEMILIHAN KOLOM INPUT/TARGET (Rincian Tugas #1 & #2)
+             ========================================================================= -->
+        <section id="section-stage-1" class="space-y-4 scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-navy-700 dark:text-sky-400">Tahap 01</span>
+                        <span class="text-slate-300 dark:text-slate-700">/</span>
+                        <h2 class="font-serif text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Persiapan Dataset, Kolom Fitur (Input) & Target</h2>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Unggah file CSV Anda atau gunakan <code class="font-mono text-slate-800 dark:text-slate-200">dataset_mahasiswa.csv</code> bawaan. Sistem otomatis menyaring nilai kosong (<code class="font-mono">-</code>) dan mengenkode target biner (0/1).</p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <label for="csv-file-input" class="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg bg-navy-700 hover:bg-navy-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+                        </svg>
+                        <span>Upload File CSV</span>
+                        <input id="csv-file-input" type="file" accept=".csv,text/csv" class="sr-only" onchange="handleFileUpload(event)">
+                    </label>
+                    <button type="button" onclick="resetToDefaultCSV()" class="px-3 py-1.5 sm:px-3 sm:py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition cursor-pointer">
+                        Reset Default
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+                <!-- Left 5 Cols: Preset Scenarios & Feature/Target Selection -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="card-surface p-4 sm:p-5 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">1. Konfigurasi Skenario & Kolom</h3>
+                            <span id="clean-status-badge" class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Auto-Cleaner Aktif</span>
+                        </div>
+
+                        <!-- Preset selector -->
+                        <div id="preset-box" class="space-y-1">
+                            <label for="scenario-preset" class="block text-xs font-medium text-slate-600 dark:text-slate-400">Preset Studi Kasus</label>
+                            <select id="scenario-preset" onchange="applyScenarioPreset()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                <option value="ketepatan" selected>Studi Kasus A: Prediksi Ketepatan Waktu Lulus (keterangan — tepat vs tidak tepat)</option>
+                                <option value="predikat">Studi Kasus B: Prediksi Predikat Yudisium (predikat_yudisium — sangat memuaskan vs memuaskan)</option>
+                                <option value="bekerja">Studi Kasus C: Prediksi Status Pasca Lulus (status_bekerja — bekerja vs mahasiswa)</option>
+                                <option value="custom">Kustomisasi Bebas (Pilih Kolom Sendiri di Bawah)</option>
+                            </select>
+                        </div>
+
+                        <!-- Target Column Selector -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-slate-100 dark:border-slate-800">
+                            <div>
+                                <label for="select-target-col" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Kolom Target (<i>t</i>)</label>
+                                <select id="select-target-col" onchange="onTargetColumnChange()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-mono text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                </select>
+                            </div>
+                            <div>
+                                <label for="select-pos-class" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Positif (<code class="font-mono text-emerald-600 dark:text-emerald-400">Kelas 1</code>)</label>
+                                <select id="select-pos-class" onchange="rebuildProcessedDataset()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-mono text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Input Features Checkboxes -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Kolom Fitur Input (<i class="font-serif">X₁ … Xₙ</i>)</label>
+                                <span id="selected-feat-count" class="text-[11px] font-mono text-slate-500 dark:text-slate-400">4 fitur dipilih</span>
+                            </div>
+                            <div id="feature-checkbox-list" class="grid grid-cols-2 gap-1.5 max-h-36 overflow-y-auto p-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 custom-scroll">
+                            </div>
+                        </div>
+
+                        <!-- Split Ratio & Normalization -->
+                        <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100 dark:border-slate-800">
+                            <div>
+                                <label for="select-split-ratio" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Rasio Latih : Uji</label>
+                                <select id="select-split-ratio" onchange="rebuildProcessedDataset()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                    <option value="0.8" selected>80% Latih : 20% Uji</option>
+                                    <option value="0.75">75% Latih : 25% Uji</option>
+                                    <option value="0.7">70% Latih : 30% Uji</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="select-norm-mode" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Skala Fitur</label>
+                                <select id="select-norm-mode" onchange="rebuildProcessedDataset()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                    <option value="minmax" selected>Normalisasi Min-Max [0, 1]</option>
+                                    <option value="raw">Nilai Mentah Asli</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Data Statistics -->
+                        <div class="rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 p-3 text-xs space-y-1.5">
+                            <div class="flex items-center justify-between font-medium text-slate-700 dark:text-slate-300">
+                                <span>Ringkasan Dataset</span>
+                                <span id="stat-total-raw" class="font-mono text-[11px] text-slate-500 dark:text-slate-400 tnum">Total: 221 baris</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 pt-1 text-center">
+                                <div class="bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 p-1.5">
+                                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Valid</div>
+                                    <div id="stat-valid-rows" class="font-mono font-bold text-slate-900 dark:text-white text-sm tnum">200</div>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 p-1.5">
+                                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Latih</div>
+                                    <div id="stat-train-rows" class="font-mono font-bold text-navy-700 dark:text-sky-400 text-sm tnum">160</div>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 p-1.5">
+                                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Uji</div>
+                                    <div id="stat-test-rows" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-sm tnum">40</div>
+                                </div>
+                            </div>
+                            <div id="stat-encoding-info" class="text-[11px] text-slate-600 dark:text-slate-400 font-mono pt-0.5">
+                                Target: "tepat" → 1 | "tidak tepat" → 0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 7 Cols: Interactive Dataset Table Viewer -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="card-surface p-4 sm:p-5 flex-1 flex flex-col">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div>
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">2. Tabel Dataset (<span id="table-view-subtitle">Data Latih & Uji</span>)</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Kolom biru = <b>Fitur Input (X)</b>, kolom hijau = <b>Target (t)</b>.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="inline-flex rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700 text-xs">
+                                    <button type="button" onclick="setDatasetTableFilter('all')" id="tab-ds-all" class="px-2.5 py-1 rounded-md font-medium transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs">Semua</button>
+                                    <button type="button" onclick="setDatasetTableFilter('train')" id="tab-ds-train" class="px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Latih</button>
+                                    <button type="button" onclick="setDatasetTableFilter('test')" id="tab-ds-test" class="px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Uji</button>
+                                </div>
+                                <label class="inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300 cursor-pointer select-none border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700">
+                                    <input type="checkbox" id="chk-show-norm" onchange="renderDatasetTable()" class="rounded border-slate-300 dark:border-slate-600 text-navy-700 dark:text-sky-500 focus:ring-navy-700">
+                                    <span>[0-1]</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden flex-1 flex flex-col">
+                            <div class="overflow-x-auto overflow-y-auto max-h-[350px] custom-scroll flex-1">
+                                <table class="w-full min-w-[760px] text-left border-collapse">
+                                    <thead id="dataset-thead" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 text-[11px] font-semibold text-slate-600 dark:text-slate-300 uppercase">
+                                    </thead>
+                                    <tbody id="dataset-tbody" class="divide-y divide-slate-100 dark:divide-slate-800/80 text-xs font-mono tnum">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900 px-3.5 py-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                                <span id="dataset-footer-note">Menampilkan sampel valid hasil penyaringan otomatis.</span>
+                                <span class="font-mono" id="dataset-class-balance">Kelas 1: 0 | Kelas 0: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             STAGE 2: PENGATURAN & PROSES PELATIHAN JST (Rincian Tugas #3 & #4)
+             ========================================================================= -->
+        <section id="section-stage-2" class="space-y-4 scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-navy-700 dark:text-sky-400">Tahap 02</span>
+                        <span class="text-slate-300 dark:text-slate-700">/</span>
+                        <h2 class="font-serif text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Pelatihan Model JST & Observasi Pembelajaran</h2>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Atur algoritma dan parameter jaringan, lalu amati perubahan bobot sinaptik (<i class="font-serif">w₁…wₙ</i>), iterasi/epoch, dan penurunan kurva error (MSE).</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="training-state-pill" class="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">Siap Dilatih</span>
+                </div>
+            </div>
+
+            <!-- Unified Responsive Control Bar -->
+            <div class="card-surface p-4">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-end">
+                    <!-- Hyperparameters (7 cols) -->
+                    <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="param-algo" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Algoritme JST</label>
+                            <select id="param-algo" onchange="onAlgorithmChange()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                                <option value="perceptron" selected>Perceptron Rule</option>
+                                <option value="delta">Delta Rule (LMS)</option>
+                                <option value="backprop">Backpropagation (MLP)</option>
+                                <option value="hebb">Hebb Rule (Bipolar)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="param-lr" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Learning Rate (α)</label>
+                            <input id="param-lr" type="number" step="0.05" min="0.005" max="2.0" value="0.2" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-mono tnum text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                        </div>
+                        <div>
+                            <label for="param-threshold" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Threshold (θ)</label>
+                            <input id="param-threshold" type="number" step="0.05" min="-2.0" max="2.0" value="0.2" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-mono tnum text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                        </div>
+                        <div>
+                            <label for="param-epochs" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Max Epoch</label>
+                            <input id="param-epochs" type="number" step="5" min="1" max="500" value="30" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-2 text-xs font-mono tnum text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons (5 cols) -->
+                    <div class="lg:col-span-5 flex flex-wrap items-center justify-start lg:justify-end gap-2">
+                        <button type="button" onclick="resetModel()" class="flex-1 sm:flex-none px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition cursor-pointer">
+                            Reset
+                        </button>
+                        <button type="button" onclick="stepOneSample()" class="flex-1 sm:flex-none px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium transition cursor-pointer">
+                            +1 Sampel
+                        </button>
+                        <button type="button" onclick="stepOneEpoch()" class="flex-1 sm:flex-none px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium transition cursor-pointer">
+                            +1 Epoch
+                        </button>
+                        <button type="button" id="btn-autorun" onclick="toggleAutoRun()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg border border-navy-700 dark:border-sky-500 bg-navy-50 dark:bg-sky-950/40 hover:bg-navy-100 dark:hover:bg-sky-900/60 text-navy-800 dark:text-sky-300 text-xs font-semibold transition cursor-pointer flex items-center justify-center gap-1.5">
+                            <span id="autorun-label">Auto-Run</span>
+                        </button>
+                        <button type="button" onclick="runFullTraining()" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-navy-700 hover:bg-navy-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white text-xs font-semibold transition cursor-pointer shadow-sm flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/>
+                            </svg>
+                            <span>Latih Selesai</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 Key Telemetry Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="card-surface p-3.5 sm:p-4">
+                    <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400">Epoch & Sampel Aktif</div>
+                    <div class="mt-1 flex items-baseline justify-between">
+                        <span id="metric-epoch" class="font-mono text-lg sm:text-xl font-bold text-slate-900 dark:text-white tnum">0 / 30</span>
+                        <span id="metric-sample" class="font-mono text-xs text-slate-500 dark:text-slate-400 tnum">Sampel #0</span>
+                    </div>
+                </div>
+                <div class="card-surface p-3.5 sm:p-4">
+                    <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400">Error Pelatihan (MSE)</div>
+                    <div class="mt-1 flex items-baseline justify-between">
+                        <span id="metric-mse" class="font-mono text-lg sm:text-xl font-bold text-rose-600 dark:text-rose-400 tnum">0.0000</span>
+                        <span class="text-[10px] text-slate-400">Mean Sq. Error</span>
+                    </div>
+                </div>
+                <div class="card-surface p-3.5 sm:p-4">
+                    <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400">Akurasi Data Latih</div>
+                    <div class="mt-1 flex items-baseline justify-between">
+                        <span id="metric-train-acc" class="font-mono text-lg sm:text-xl font-bold text-slate-900 dark:text-white tnum">0.0%</span>
+                        <span id="metric-train-ratio" class="font-mono text-xs text-slate-500 dark:text-slate-400 tnum">0/0 benar</span>
+                    </div>
+                </div>
+                <div class="card-surface p-3.5 sm:p-4">
+                    <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400">Akurasi Data Uji (Testing)</div>
+                    <div class="mt-1 flex items-baseline justify-between">
+                        <span id="metric-test-acc" class="font-mono text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400 tnum">0.0%</span>
+                        <span id="metric-test-ratio" class="font-mono text-xs text-slate-500 dark:text-slate-400 tnum">0/0 benar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Training Visuals: Architecture Canvas + Convergence Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+                <!-- Left 6 Cols: Neural Network Topology & Weight Cards -->
+                <div class="lg:col-span-6 card-surface p-4 sm:p-5 flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Arsitektur Jaringan & Bobot Sinaptik</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Garis <span class="text-emerald-600 dark:text-emerald-400 font-medium">hijau</span> = bobot positif, <span class="text-rose-600 dark:text-rose-400 font-medium">merah</span> = negatif.</p>
+                        </div>
+                        <span id="arch-badge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">Single-Layer</span>
+                    </div>
+
+                    <div id="canvas-container" class="w-full bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-lg flex items-center justify-center p-2 overflow-hidden">
+                        <canvas id="nnCanvas" width="520" height="250" class="w-full h-auto max-h-[250px]"></canvas>
+                    </div>
+
+                    <!-- Live Synaptic Weights Grid -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Nilai Bobot (<i class="font-serif">wᵢ</i>) & Bias (<i class="font-serif">b</i>)</span>
+                            <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400" id="lbl-weight-update-count">0 pembaruan</span>
+                        </div>
+                        <div id="weights-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 6 Cols: Error Chart & Step-by-Step Math Inspector -->
+                <div class="lg:col-span-6 flex flex-col gap-5 sm:gap-6">
+                    <!-- Chart Card -->
+                    <div class="card-surface p-4 sm:p-5 flex-1 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Kurva Pembelajaran per Epoch</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400">Penurunan MSE dan Akurasi Uji.</p>
+                            </div>
+                            <button type="button" onclick="resetChart()" class="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white underline cursor-pointer">Bersihkan</button>
+                        </div>
+                        <div class="relative flex-1 min-h-[190px]">
+                            <canvas id="errorChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Math Calculation Inspector -->
+                    <div class="card-surface p-4 sm:p-5 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Inspektor Perhitungan Sampel</h3>
+                            <span id="inspector-step-badge" class="font-mono text-[11px] text-slate-500 dark:text-slate-400">Epoch 0</span>
+                        </div>
+                        <div id="math-inspector-box" class="rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 p-3 font-mono text-xs text-slate-700 dark:text-slate-300 space-y-1.5 tnum">
+                            <p class="text-slate-500 dark:text-slate-400 font-sans">Klik tombol <b>+1 Sampel</b>, <b>+1 Epoch</b>, atau <b>Latih Selesai</b> untuk melihat rincian rumus dan nilai variabel.</p>
+                        </div>
+                        <!-- Compact Epoch Log History -->
+                        <details class="group">
+                            <summary class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer flex items-center justify-between py-1 select-none">
+                                <span>Riwayat Log Iterasi (<span id="log-count">0</span> catatan)</span>
+                                <span class="text-[11px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div id="log-console" class="mt-2 bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 max-h-36 overflow-y-auto font-mono text-[11px] text-slate-600 dark:text-slate-400 space-y-1 custom-scroll tnum">
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             STAGE 3: PENGUJIAN LANGSUNG & EVALUASI DATA UJI (Rincian Tugas #5 & #6)
+             ========================================================================= -->
+        <section id="section-stage-3" class="space-y-4 scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-navy-700 dark:text-sky-400">Tahap 03</span>
+                        <span class="text-slate-300 dark:text-slate-700">/</span>
+                        <h2 class="font-serif text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Pengujian Input Langsung & Evaluasi Ketepatan Data Uji</h2>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Uji model JST dengan memasukkan nilai fitur secara manual, lalu bandingkan hasil prediksi (<i class="font-serif">ŷ</i>) terhadap target sebenarnya (<i class="font-serif">t</i>) pada data uji.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+                <!-- Left 5 Cols: Live Prediction Simulator (Rincian Tugas #5) -->
+                <div class="lg:col-span-5">
+                    <div class="card-surface p-4 sm:p-5 space-y-4 h-full flex flex-col justify-between">
+                        <div class="space-y-3.5">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div>
+                                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Simulasi Prediksi Langsung (Input Manual)</h3>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Ketik nilai sendiri atau klik contoh di bawah untuk menguji hasil <b>1</b> vs <b>0</b>.</p>
+                                </div>
+                            </div>
+
+                            <!-- Quick Sample Buttons: Contoh Lulus (1) vs Contoh Tidak Lulus (0) -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" onclick="fillTestSampleByClass(1)" class="px-2.5 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 transition cursor-pointer flex items-center justify-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
+                                    <span class="truncate">Contoh Kelas 1 (Lulus)</span>
+                                </button>
+                                <button type="button" onclick="fillTestSampleByClass(0)" class="px-2.5 py-1.5 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50/70 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-[11px] font-semibold text-rose-800 dark:text-rose-300 transition cursor-pointer flex items-center justify-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-rose-600 dark:bg-rose-400"></span>
+                                    <span class="truncate">Contoh Kelas 0 (Tidak)</span>
+                                </button>
+                            </div>
+
+                            <!-- Dynamic Feature Inputs Container -->
+                            <div id="live-test-inputs" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <button type="button" onclick="runLivePrediction()" class="w-full py-2.5 px-4 rounded-lg bg-navy-700 hover:bg-navy-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white text-xs font-semibold transition cursor-pointer shadow-sm">
+                                Hitung Prediksi Model JST
+                            </button>
+
+                            <!-- Prediction Output Card -->
+                            <div id="live-prediction-box" class="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/70 p-3.5 space-y-2">
+                                <div class="flex items-center justify-between text-xs">
+                                    <span class="text-slate-500 dark:text-slate-400 font-medium">Hasil Keputusan (<i class="font-serif">ŷ</i>):</span>
+                                    <span id="pred-badge" class="font-mono font-bold px-2.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">-</span>
+                                </div>
+                                <div id="pred-math-detail" class="text-[11px] font-mono text-slate-600 dark:text-slate-400 tnum border-t border-slate-200/80 dark:border-slate-800 pt-2">
+                                    Masukkan nilai di atas lalu klik "Hitung Prediksi Model JST".
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 7 Cols: Testing Set Comparison & Confusion Matrix (Rincian Tugas #6) -->
+                <div class="lg:col-span-7">
+                    <div class="card-surface p-4 sm:p-5 space-y-4 h-full flex flex-col">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Daftar Hasil Prediksi Mahasiswa (<i class="font-serif">ŷ</i>) vs Target (<i class="font-serif">t</i>)</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Bandingkan tebakan JST dengan target asli pada data uji.</p>
+                            </div>
+                            <div class="inline-flex rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700 text-xs">
+                                <button type="button" onclick="setEvalSubset('test')" id="btn-eval-test" class="px-2.5 py-1 rounded-md font-medium transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs">Data Uji</button>
+                                <button type="button" onclick="setEvalSubset('train')" id="btn-eval-train" class="px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Data Latih</button>
+                            </div>
+                        </div>
+
+                        <!-- Confusion Matrix & Summary Strip -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 text-center">
+                            <div class="rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 p-2">
+                                <div class="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase">Akurasi</div>
+                                <div id="eval-acc-pct" class="font-mono text-base font-bold text-navy-700 dark:text-sky-400 tnum mt-0.5">0.0%</div>
+                            </div>
+                            <div class="rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-2">
+                                <div class="text-[10px] font-medium text-emerald-800 dark:text-emerald-400">Benar Lulus (1→1)</div>
+                                <div id="cm-tp" class="font-mono text-base font-bold text-emerald-600 dark:text-emerald-400 tnum mt-0.5">0</div>
+                            </div>
+                            <div class="rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-2">
+                                <div class="text-[10px] font-medium text-emerald-800 dark:text-emerald-400">Benar Tidak (0→0)</div>
+                                <div id="cm-tn" class="font-mono text-base font-bold text-emerald-600 dark:text-emerald-400 tnum mt-0.5">0</div>
+                            </div>
+                            <div class="rounded-lg bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-2">
+                                <div class="text-[10px] font-medium text-rose-800 dark:text-rose-400">Meleset Pos (0→1)</div>
+                                <div id="cm-fp" class="font-mono text-base font-bold text-rose-600 dark:text-rose-400 tnum mt-0.5">0</div>
+                            </div>
+                            <div class="rounded-lg bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-2 col-span-2 sm:col-span-1">
+                                <div class="text-[10px] font-medium text-rose-800 dark:text-rose-400">Meleset Neg (1→0)</div>
+                                <div id="cm-fn" class="font-mono text-base font-bold text-rose-600 dark:text-rose-400 tnum mt-0.5">0</div>
+                            </div>
+                        </div>
+
+                        <!-- Filter by Class Outcome Bar -->
+                        <div class="flex flex-wrap items-center justify-between gap-1.5 pt-1">
+                            <span class="text-[11px] font-medium text-slate-600 dark:text-slate-400">Filter Baris:</span>
+                            <div class="inline-flex flex-wrap rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700 text-[11px]">
+                                <button type="button" onclick="setEvalClassFilter('all')" id="flt-eval-all" class="px-2 py-0.5 rounded-md font-semibold transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs">Semua (<span id="cnt-eval-all">0</span>)</button>
+                                <button type="button" onclick="setEvalClassFilter('pos')" id="flt-eval-pos" class="px-2 py-0.5 rounded-md font-medium transition cursor-pointer text-emerald-700 dark:text-emerald-400 hover:bg-white/60 dark:hover:bg-slate-700">Lulus 1 (<span id="cnt-eval-pos">0</span>)</button>
+                                <button type="button" onclick="setEvalClassFilter('neg')" id="flt-eval-neg" class="px-2 py-0.5 rounded-md font-medium transition cursor-pointer text-rose-700 dark:text-rose-400 hover:bg-white/60 dark:hover:bg-slate-700">Tidak 0 (<span id="cnt-eval-neg">0</span>)</button>
+                                <button type="button" onclick="setEvalClassFilter('err')" id="flt-eval-err" class="px-2 py-0.5 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:bg-white/60 dark:hover:bg-slate-700">Meleset (<span id="cnt-eval-err">0</span>)</button>
+                            </div>
+                        </div>
+
+                        <!-- Comparison Table -->
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden flex-1 flex flex-col">
+                            <div class="overflow-x-auto overflow-y-auto max-h-[290px] custom-scroll flex-1">
+                                <table class="w-full min-w-[760px] text-left border-collapse">
+                                    <thead id="eval-thead" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 text-[11px] font-semibold text-slate-600 dark:text-slate-300 uppercase">
+                                    </thead>
+                                    <tbody id="eval-tbody" class="divide-y divide-slate-100 dark:divide-slate-800/80 text-xs font-mono tnum">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900 px-3.5 py-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                                <span id="eval-summary-text">Benar: 0 dari 0 sampel uji</span>
+                                <span class="hidden sm:inline">Klik baris untuk menguji di simulator kiri</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2">
+            <span>Virtual Lab Praktikum JST — Supervised Learning & Tabular Dataset</span>
+            <span class="font-mono text-[11px]">Mahasiswa: Muhammad Nailul Ghufron Majid • dataset_mahasiswa.csv</span>
+        </div>
+    </footer>
+
+    <!-- THEORY & FORMULA REFERENCE MODAL -->
+    <div id="theoryModal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-2xl w-full p-6 shadow-xl space-y-4 max-h-[85vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <h2 id="modal-title" class="font-serif text-xl font-bold text-slate-900 dark:text-white">Ringkasan Rumus Algoritma JST Supervised Learning</h2>
+                <button type="button" onclick="closeTheoryModal()" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer" aria-label="Tutup panduan">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">1. Normalisasi Min-Max [0, 1]</h3>
+                    <p>Mencegah gradien meledak dengan memetakan setiap fitur numerik ke rentang <code class="font-mono">[0, 1]</code>:</p>
+                    <p class="font-mono text-[11px] bg-white dark:bg-slate-900 px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 mt-1.5">x'ᵢ = (xᵢ - x_min) / (x_max - x_min)</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">2. Perceptron Learning Rule (Rosenblatt)</h3>
+                    <p>Menghitung <code class="font-mono">y_in = b + Σ(xᵢ · wᵢ)</code> dan menerapkan aktivasi step terhadap threshold <code class="font-mono">θ</code>. Bobot diperbarui jika terjadi error (<code class="font-mono">e = t - ŷ ≠ 0</code>):</p>
+                    <p class="font-mono text-[11px] bg-white dark:bg-slate-900 px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 mt-1.5">wᵢ(baru) = wᵢ(lama) + α · (t - ŷ) · xᵢ &nbsp;|&nbsp; b(baru) = b(lama) + α · (t - ŷ)</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">3. Delta Rule / Widrow-Hoff (Least Mean Square)</h3>
+                    <p>Meminimalkan kuadrat error secara kontinu menggunakan selisih antara target <code class="font-mono">t</code> dan keluaran <code class="font-mono">y_in</code>:</p>
+                    <p class="font-mono text-[11px] bg-white dark:bg-slate-900 px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 mt-1.5">e = t - y_in &nbsp;|&nbsp; wᵢ(baru) = wᵢ(lama) + α · e · xᵢ</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">4. Backpropagation (Multi-Layer Perceptron)</h3>
+                    <p>Arsitektur multilayer (Input → 3 Hidden Neurons → Output) dengan fungsi aktivasi Sigmoid kontinu <code class="font-mono">f(z) = 1 / (1 + e⁻ᶻ)</code> dan propagasi gradien error balik.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">5. Hebb Rule (Bipolar Correlation)</h3>
+                    <p>Memetakan input dan target ke bipolar (<code class="font-mono">-1</code> dan <code class="font-mono">+1</code>) dan memperkuat bobot saat input dan target searah.</p>
+                </div>
+            </div>
+            <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+                <button type="button" onclick="closeTheoryModal()" class="px-4 py-2 rounded-lg bg-navy-700 hover:bg-navy-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white text-xs font-semibold cursor-pointer">Tutup Panduan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMBEDDED DEFAULT CSV & JAVASCRIPT ENGINE -->
+    <script>
+        const DEFAULT_CSV_RAW = `no,nim,jenis_kelamin,agama,suku,fakultas,program_studi,tahun_masuk,tahun_yudisium,tahun_wisuda, ipk_yudisium , ips1 , ips2 , ips3 , ips4 , ipk(1-4) ,predikat_yudisium,status_bekerja,keterangan
+1,2015010003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.08 , 3.30 , 3.38 , 3.58 , 3.34 ,,mahasiswa,tidak tepat
+2,2015010004,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.63 , 3.60 , 3.62 , 3.59 , 3.61 ,,mahasiswa,tidak tepat
+3,2015010007,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.46 , 3.40 , 3.33 , 3.26 , 3.36 ,,mahasiswa,tidak tepat
+4,2015010010,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 2.88 , 2.90 , 3.86 , 3.58 , 3.31 ,,mahasiswa,tidak tepat
+5,2015010023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 2.79 , 3.15 , -   , 3.21 , 2.29 ,,mahasiswa,tidak tepat
+6,2015020005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2015,2021,2021, -   , 3.55 , 3.41 , 3.58 , 2.00 , 3.14 ,,bekerja,tidak tepat
+7,2015030004,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.62 , 3.10 , 3.76 , 3.24 , 3.18 ,,mahasiswa,tidak tepat
+8,2015030008,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.10 , 3.29 , 3.62 , 3.48 , 3.37 ,,mahasiswa,tidak tepat
+9,2015030010,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.90 , 3.19 , 3.29 , 2.67 , 3.01 ,,mahasiswa,tidak tepat
+10,2015030015,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.71 , 3.00 , 3.38 , 3.14 , 3.06 ,,mahasiswa,tidak tepat
+11,2015030017,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.43 , 3.10 , 3.81 , 3.33 , 3.42 ,,bekerja,tidak tepat
+12,2015030020,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.43 , 3.29 , 3.48 , 3.57 , 3.44 ,,mahasiswa,tidak tepat
+13,2015040001,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 2.70 , 2.70 , 3.29 , 2.90 , 2.90 ,,mahasiswa,tidak tepat
+14,2015040002,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.74 , 3.65 , 3.53 , 3.75 , 3.67 ,,mahasiswa,tidak tepat
+15,2015040004,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.65 , 3.75 , 3.53 , 3.85 , 3.70 ,,mahasiswa,tidak tepat
+16,2015040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.17 , 2.75 , 3.29 , 3.15 , 3.09 ,,bekerja,tidak tepat
+17,2015040008,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.13 , 2.45 , 3.29 , 2.80 , 2.92 ,,bekerja,tidak tepat
+18,2015040015,laki-laki,islam,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.39 , 2.95 , 3.12 , 2.40 , 2.97 ,,bekerja,tidak tepat
+19,2015040019,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.17 , 2.50 , 3.24 , 3.15 , 3.02 ,,,tidak tepat
+20,2015040021,,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.22 , 3.00 , 3.29 , 3.05 , 3.14 ,,bekerja,tidak tepat
+21,2015040022,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.30 , 3.50 , 3.59 , 3.50 , 3.47 ,,mahasiswa,tidak tepat
+22,2015040024,perempuan,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.39 , 3.55 , 3.41 , 3.80 , 3.54 ,,mahasiswa,tidak tepat
+23,2015040025,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 2.96 , 3.25 , 3.12 , 3.10 , 3.11 ,,,tidak tepat
+24,2015070001,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.86 , 3.10 , 2.90 , 3.70 , 3.14 ,,mahasiswa,tidak tepat
+25,2015070002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.32 , 3.43 , 2.90 , 3.60 , 3.31 ,,bekerja,tidak tepat
+26,2015070003,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.36 , 3.57 , 3.25 , 3.75 , 3.48 ,,mahasiswa,tidak tepat
+27,2015070004,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.32 , 3.71 , 3.55 , 3.85 , 3.61 ,,bekerja,tidak tepat
+28,2015070006,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 2.29 , 2.10 , 3.35 , 2.63 ,,bekerja,tidak tepat
+29,2015070007,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 3.19 , 3.45 , 3.90 , 3.33 ,,bekerja,tidak tepat
+30,2015070010,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.00 , 2.52 , 2.40 , 3.35 , 2.82 ,,bekerja,tidak tepat
+31,2015070016,perempuan,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 2.86 , 2.40 , 2.55 , 2.65 ,,mahasiswa,tidak tepat
+32,2015090003,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.30 , 3.20 , 3.00 , 2.10 , 2.90 ,,,tidak tepat
+33,2015090004,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.10 , 3.15 , 3.25 , 2.05 , 2.89 ,,mahasiswa,tidak tepat
+34,2015090005,perempuan,,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.40 , 3.55 , 3.00 , 1.90 , 2.96 ,,,tidak tepat
+35,2015090006,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2022,2021, -   , 3.50 , 3.40 , 3.00 , 2.05 , 2.99 ,,bekerja,tidak tepat
+36,2015090008,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.40 , 3.80 , 3.50 , 2.05 , 3.19 ,,bekerja,tidak tepat
+37,2015090009,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.00 , 3.00 , 3.00 , 2.20 , 2.80 ,,mahasiswa,tidak tepat
+38,2015090010,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.30 , 3.55 , 3.60 , 1.95 , 3.10 ,,mahasiswa,tidak tepat
+39,2015100003,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 2.91 , 3.14 , 2.76 , 3.28 , 3.02 ,,mahasiswa,tidak tepat
+40,2015100004,perempuan,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 3.75 , 2.30 , 3.48 , 3.74 , 3.32 ,,bekerja,tidak tepat
+41,2015100005,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 3.36 , 3.82 , 3.62 , 3.39 , 3.55 ,,mahasiswa,tidak tepat
+42,2015030003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.52 , 3.00 , 3.62 , 3.33 , 3.12 ,,mahasiswa,tidak tepat
+43,2015030013,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.71 , 3.10 , 3.38 , 3.24 , 3.11 ,,mahasiswa,tidak tepat
+44,2015030018,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.14 , 3.29 , 3.43 , 3.76 , 3.41 ,,mahasiswa,tidak tepat
+45,2015030027,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.90 , 2.81 , 2.90 , 2.67 , 2.82 ,,,tidak tepat
+46,2015060017,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik informatika,2015,2021,2021, -   , 3.00 , 3.00 , 3.37 , 3.67 , 3.26 ,,mahasiswa,tidak tepat
+47,2015080002,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.24 , 3.16 , 2.85 , 3.55 , 3.20 ,,,tidak tepat
+48,2015080003,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.38 , 3.42 , 3.15 , 3.55 , 3.38 ,,,tidak tepat
+49,2015080004,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.19 , 3.16 , 3.45 , 3.40 , 3.30 ,,bekerja,tidak tepat
+50,2015080005,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.57 , 3.21 , 3.10 , 3.60 , 3.37 ,,,tidak tepat
+51,2015080009,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.43 , 3.11 , 3.25 , 3.25 , 3.26 ,,bekerja,tidak tepat
+52,2015080015,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.33 , 3.32 , 3.00 , 3.55 , 3.30 ,,bekerja,tidak tepat
+53,2015020002,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2015,2022,2022, 2.95 , 3.18 , 2.86 , 3.11 , 2.00 , 2.79 ,memuaskan,,tidak tepat
+54,2015040011,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2022, 2.94 , 2.65 , 3.00 , 3.41 , 3.40 , 3.12 ,memuaskan,mahasiswa,tidak tepat
+55,2015040006,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2022,2022, 2.88 , 3.22 , 2.45 , 3.41 , 3.51 , 3.15 ,memuaskan,mahasiswa,tidak tepat
+56,2015010011,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2022,2022, 3.12 , 2.96 , 2.80 , 3.71 , 3.16 , 3.16 ,sangat memuaskan,mahasiswa,tidak tepat
+57,2015030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2022,,,,,,,,mahasiswa,tidak tepat
+58,2015060001,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.19 , 3.10 , 2.90 , 3.58 , 3.52 , 3.28 ,sangat memuaskan,mahasiswa,tidak tepat
+59,2015060002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.31 , 3.10 , 3.30 , 3.47 , 3.43 , 3.33 ,sangat memuaskan,bekerja,tidak tepat
+60,2015060005,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.21 , 2.90 , 2.90 , 3.58 , 3.43 , 3.20 ,sangat memuaskan,mahasiswa,tidak tepat
+61,2015060007,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.41 , 3.65 , 3.55 , 3.63 , 3.48 , 3.58 ,sangat memuaskan,bekerja,tidak tepat
+62,2015060011,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.34 , 3.00 , 3.10 , 3.63 , 3.57 , 3.33 ,sangat memuaskan,mahasiswa,tidak tepat
+63,2015050002,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik mesin,2015,2022,2022, 2.92 , 2.81 , 3.38 , 2.10 , 3.60 , 2.97 ,memuaskan,mahasiswa,tidak tepat
+64,2015070019,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2022,2022, 3.08 , 2.82 , 3.10 , 3.00 , 2.65 , 2.89 ,sangat memuaskan,bekerja,tidak tepat
+65,2015030012,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2022,,,,,,,,bekerja,tidak tepat
+66,2015030022,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2022,2023, 3.32 , 3.52 , 3.48 , 3.71 , 3.43 , 3.54 ,sangat memuaskan,mahasiswa,tidak tepat
+67,2015030001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2022,2023, 2.79 , 2.52 , 2.62 , 3.81 , 2.43 , 2.85 ,memuaskan,mahasiswa,tidak tepat
+68,2015040009,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2023,2023, 2.91 , 2.52 , 1.70 , -   , 2.10 , 1.58 ,memuaskan,mahasiswa,tidak tepat
+69,2016010001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2021,2021, -   , 3.36 , 2.85 , 2.24 , 2.85 , 2.83 ,,mahasiswa,tidak tepat
+70,2016010004,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2021,2021, -   , 3.68 , 3.65 , 3.14 , 3.15 , 3.41 ,,mahasiswa,tidak tepat
+71,2016020002,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.27 , 2.95 , -   , 2.90 , 2.28 ,,mahasiswa,tidak tepat
+72,2016020004,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.55 , 3.36 , -   , 3.15 , 2.52 ,,mahasiswa,tidak tepat
+73,2016020008,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.45 , 3.32 , -   , 3.65 , 2.61 ,,mahasiswa,tidak tepat
+74,2016020010,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 2.91 , 3.27 , -   , 2.40 , 2.15 ,,mahasiswa,tidak tepat
+75,2016030018,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.71 , 3.52 , 3.57 , 3.82 , 3.66 ,,mahasiswa,tidak tepat
+76,2016030026,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.62 , 3.90 , 3.90 , 2.95 , 3.59 ,,mahasiswa,tidak tepat
+77,2016030027,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.62 , 3.62 , 3.81 , 4.00 , 3.76 ,,bekerja,tidak tepat
+78,2016040003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.39 , 3.90 , 3.06 , 3.40 , 3.44 ,,,tidak tepat
+79,2016040004,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.04 , 3.60 , 2.29 , 2.75 , 2.92 ,,,tidak tepat
+80,2016040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.91 , 2.50 , 2.59 , 3.50 , 2.88 ,,,tidak tepat
+81,2016040009,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.52 , 3.60 , 3.18 , 3.65 , 3.49 ,,mahasiswa,tidak tepat
+82,2016040010,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.87 , 3.75 , 2.88 , 3.25 , 3.19 ,,mahasiswa,tidak tepat
+83,2016040011,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.87 , 3.75 , 2.94 , 2.85 , 3.10 ,,bekerja,tidak tepat
+84,2016040016,laki-laki,,,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.83 , 3.90 , 2.18 , 2.75 , 2.92 ,,,tidak tepat
+85,2016040017,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.09 , 3.65 , 2.65 , 3.65 , 3.26 ,,mahasiswa,tidak tepat
+86,2016040019,laki-laki,protestan,,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.83 , 3.45 , 2.59 , 3.00 , 2.97 ,,mahasiswa,tidak tepat
+87,2016040021,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.70 , 3.75 , 3.18 , 3.75 , 3.60 ,,mahasiswa,tidak tepat
+88,2016040024,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.52 , 3.60 , 2.71 , 3.45 , 3.32 ,,mahasiswa,tidak tepat
+89,2016040030,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.91 , 3.75 , 3.18 , 3.60 , 3.36 ,,,tidak tepat
+90,2016040032,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.86 , 3.25 , 2.81 , 2.70 , 2.91 ,,,tidak tepat
+91,2016040035,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.74 , 3.70 , 3.41 , 3.85 , 3.68 ,,bekerja,tidak tepat
+92,2016040037,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.04 , 3.80 , 3.29 , 3.75 , 3.47 ,,mahasiswa,tidak tepat
+93,2016050004,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.90 , 3.57 , 2.90 , 3.10 , 3.37 ,,mahasiswa,tidak tepat
+94,2016050010,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.52 , 3.62 , 2.90 , 3.20 , 3.31 ,,mahasiswa,tidak tepat
+95,2016050012,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.38 , 3.24 , 2.81 , 3.10 , 3.13 ,,mahasiswa,tidak tepat
+96,2016070001,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 3.64 , 3.57 , 3.00 , 2.55 , 3.19 ,,bekerja,tidak tepat
+97,2016070004,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 2.86 , 3.90 , 1.90 , 2.00 , 2.67 ,,mahasiswa,tidak tepat
+98,2016070012,laki-laki,,non-oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 3.18 , 3.19 , 2.55 , 2.10 , 2.76 ,,mahasiswa,tidak tepat
+99,2016030002,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.43 , 3.19 , 3.00 , 3.24 ,,mahasiswa,tidak tepat
+100,2016030019,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.81 , 3.38 , 3.41 , 3.48 ,,mahasiswa,tidak tepat
+101,2016030025,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.81 , 3.52 , 3.57 , 3.68 , 3.65 ,,mahasiswa,tidak tepat
+102,2016030032,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.76 , 2.19 , 2.38 , 2.86 , 2.80 ,,,tidak tepat
+103,2016030047,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.81 , 3.71 , 3.64 , 3.62 ,,,tidak tepat
+104,2016030049,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.19 , 3.81 , 3.76 , 3.82 , 3.65 ,,,tidak tepat
+105,2016030052,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 2.52 , 0.30 , 2.47 , 2.25 , 1.89 ,,,tidak tepat
+106,2016030057,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.29 , 3.81 , 3.57 , 3.55 , 3.56 ,,,tidak tepat
+107,2016030066,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.52 , 3.81 , 3.57 , 3.73 , 3.66 ,,bekerja,tidak tepat
+108,2016030067,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.48 , 3.81 , 4.00 , 3.91 , 3.80 ,,bekerja,tidak tepat
+109,2016080018,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2016,2021,2021, -   , 3.48 , 3.47 , 3.15 , 3.60 , 3.43 ,,bekerja,tidak tepat
+110,2016100001,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.46 ,,,,,,sangat memuaskan,mahasiswa,tidak tepat
+111,2016100006,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.24 , 3.27 , 3.05 , 3.29 , 3.85 , 3.37 ,sangat memuaskan,mahasiswa,tidak tepat
+112,2016100004,perempuan,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.40 ,,,,,,sangat memuaskan,,tidak tepat
+113,2016100007,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.33 , 3.18 , 3.27 , 3.29 , 3.85 , 3.40 ,sangat memuaskan,mahasiswa,tidak tepat
+114,2016040023,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2022, 2.77 , 2.61 , 3.50 , 2.18 , 2.85 , 2.79 ,memuaskan,mahasiswa,tidak tepat
+115,2016040020,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2022, 2.90 , 3.04 , 3.65 , 2.59 , 2.85 , 3.03 ,memuaskan,mahasiswa,tidak tepat
+116,2016010006,laki-laki,,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2022,2022, 3.16 , 3.14 , 3.00 , 3.14 , 3.15 , 3.11 ,sangat memuaskan,bekerja,tidak tepat
+117,2016010011,laki-laki,,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2022,2022, 3.18 , 3.64 , 3.00 , 3.14 , 3.15 , 3.23 ,sangat memuaskan,,tidak tepat
+118,2016030074,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.51 , 3.71 , 3.62 , 3.10 , 3.68 , 3.53 ,sangat memuaskan,,tidak tepat
+119,20160300048,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.81 , 3.48 , 2.52 , 2.48 , 2.27 , 2.69 ,memuaskan,,tidak tepat
+120,2016030038,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.14 , 3.19 , 3.10 , 3.10 , 3.68 , 3.27 ,sangat memuaskan,mahasiswa,tidak tepat
+121,2016030003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.34 ,,,,,,sangat memuaskan,,tidak tepat
+122,2016030004,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.29 , 3.14 , 3.62 , 3.19 , 3.09 , 3.26 ,sangat memuaskan,bekerja,tidak tepat
+123,2016030058,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.01 , 3.48 , 3.19 , 2.71 , 2.72 , 3.03 ,sangat memuaskan,,tidak tepat
+124,2016030023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.06 , 3.57 , 3.05 , 2.52 , 2.86 , 3.00 ,sangat memuaskan,mahasiswa,tidak tepat
+125,2016030053,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.17 , 3.48 , 2.71 , 3.00 , 3.27 , 3.12 ,sangat memuaskan,,tidak tepat
+126,2016030050,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.76 , 3.29 , 2.81 , 2.00 , 2.14 , 2.56 ,memuaskan,,tidak tepat
+127,2016030060,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.92 ,,,,,,memuaskan,,tidak tepat
+128,2016030031,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.21 , 3.52 , 3.52 , 3.29 , 3.18 , 3.38 ,sangat memuaskan,mahasiswa,tidak tepat
+129,2016050001,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2022, 3.03 , 3.24 , 3.62 , 2.92 , 3.00 , 3.20 ,sangat memuaskan,mahasiswa,tidak tepat
+130,2016020009,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2023,2023, 3.27 , 2.96 , 2.80 , 3.71 , 3.16 , 3.16 ,sangat memuaskan,mahasiswa,tidak tepat
+131,2016100006,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,agribisnis,2016,2023,2023, 3.24 , 3.27 , 3.05 , 3.29 , 3.85 , 3.37 ,sangat memuaskan,mahasiswa,tidak tepat
+132,2016030084,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.95 , 3.62 , 2.81 , -   , 2.86 , 2.32 ,memuaskan,mahasiswa,tidak tepat
+133,2016030071,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.03 , 3.67 , 2.90 , 2.81 , 2.64 , 3.01 ,sangat memuaskan,mahasiswa,tidak tepat
+134,2016030088,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.09 , 2.90 , 2.81 , 2.90 , 2.73 , 2.84 ,memuaskan,mahasiswa,tidak tepat
+135,2016030007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.60 , 3.57 , 2.10 , 2.10 , 2.68 , 2.61 ,memuaskan,mahasiswa,tidak tepat
+136,2016030029,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.06 , 3.57 , 3.52 , 2.90 , 3.00 , 3.25 ,sangat memuaskan,,tidak tepat
+137,2016030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.28 , 3.43 , 3.52 , 3.00 , 3.00 , 3.24 ,sangat memuaskan,mahasiswa,tidak tepat
+138,2016030043,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.92 , 3.57 , 2.90 , 3.10 , 2.91 , 3.12 ,memuaskan,,tidak tepat
+139,2016030072,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.90 , 3.52 , 3.19 , 2.81 , 2.23 , 2.94 ,memuaskan,mahasiswa,tidak tepat
+140,2016030069,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.87 , 3.57 , 3.00 , 2.62 , 2.00 , 2.80 ,memuaskan,mahasiswa,tidak tepat
+141,2016030013,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.81 , 3.67 , 2.76 , 2.10 , 2.95 , 2.87 ,memuaskan,mahasiswa,tidak tepat
+142,2016030040,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.50 , 3.67 , 3.52 , 3.81 , 3.68 , 3.67 ,sangat memuaskan,bekerja,tidak tepat
+143,2016030036,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.84 , 3.33 , 2.71 , 2.52 , 2.86 , 2.86 ,memuaskan,mahasiswa,tidak tepat
+144,2016030044,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.06 , 3.71 , 3.19 , 3.19 , 2.91 , 3.25 ,sangat memuaskan,,tidak tepat
+145,2016030080,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.36 , 3.33 , 3.52 , 3.81 , 3.18 , 3.46 ,sangat memuaskan,mahasiswa,tidak tepat
+146,2016030056,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.25 , 3.58 , 3.19 , 3.43 , 0.41 , 2.65 ,sangat memuaskan,,tidak tepat
+147,2016030078,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.29 , 3.33 , 3.33 , 3.00 , 3.14 , 3.20 ,sangat memuaskan,,tidak tepat
+148,2016030070,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.90 , 3.29 , 2.71 , 2.71 , 2.91 , 2.91 ,memuaskan,mahasiswa,tidak tepat
+149,2016040036,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2022,2023, 2.77 , 2.83 , 3.50 , 2.59 , 3.00 , 2.98 ,memuaskan,,tidak tepat
+150,2016040001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2023,2023, 3.10 , 3.43 , 3.70 , 2.94 , 3.20 , 3.32 ,sangat memuaskan,mahasiswa,tidak tepat
+151,2016010007,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2023,2023, 3.17 , 3.82 , 3.65 , 3.14 , 3.15 , 3.44 ,sangat memuaskan,bekerja,tidak tepat
+152,2016060012,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2016,2023,2023, 3.28 , 3.57 , 3.70 , -   , 3.24 , 2.63 ,sangat memuaskan,mahasiswa,tidak tepat
+153,2016070014,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik sipil,2016,2023,2023, 2.94 , 2.68 , 3.52 , 2.68 , 3.52 , 3.10 ,memuaskan,mahasiswa,tidak tepat
+154,2017050005,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2021, -   , 2.52 , 2.86 , 2.33 , 2.95 , 2.67 ,,bekerja,tepat
+155,2017090002,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.32 , 3.20 , 3.50 , 3.00 , 3.00 , 3.18 ,sangat memuaskan,bekerja,tepat
+156,2017090002,perempuan,,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022,, 3.00 , 3.20 , 3.00 , 2.89 , 3.02 ,,bekerja,tepat
+157,2017090001,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.32 , 3.20 , 3.50 , 3.00 , 3.00 , 3.18 ,sangat memuaskan,bekerja,tepat
+158,2017090002,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.40 , 3.00 , 3.15 , 3.00 , 3.28 , 3.11 ,sangat memuaskan,bekerja,tepat
+159,2017020007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2022,2022, 3.33 , -   , 3.14 , 3.26 , 3.60 , 2.50 ,sangat memuaskan,,tidak tepat
+160,2017040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 3.41 , 3.39 , 3.15 , 2.71 , 3.55 , 3.20 ,sangat memuaskan,,tidak tepat
+161,2017040007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 3.23 , 3.09 , 3.25 , 2.65 , 3.25 , 3.06 ,sangat memuaskan,,tidak tepat
+162,2017040023,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 2.98 , 2.87 , 3.00 , 2.65 , 2.75 , 2.82 ,memuaskan,bekerja,tidak tepat
+163,2017010006,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2022,2022, 3.16 , 3.00 , 3.35 , 3.43 , 3.30 , 3.27 ,sangat memuaskan,mahasiswa,tidak tepat
+164,2017010008,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2022,2022, 2.91 , 2.86 , 3.25 , 2.81 , 2.70 , 2.91 ,memuaskan,,tidak tepat
+165,2017060003,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2017,2022,2022, 3.38 , -   , 3.20 , 3.00 , 3.75 , 2.49 ,sangat memuaskan,mahasiswa,tidak tepat
+166,2017050001,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2022, 3.29 , 3.75 , 3.48 , 3.19 , 3.45 , 3.47 ,sangat memuaskan,bekerja,tepat
+167,2017050002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2022, 3.28 , 3.33 , 3.48 , 3.24 , 3.45 , 3.38 ,sangat memuaskan,bekerja,tepat
+168,2017090002,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2017,2022,2022, 3.12 , 2.73 , 3.57 , 2.90 , 2.55 , 2.94 ,sangat memuaskan,mahasiswa,tidak tepat
+169,2017090012,perempuan,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2017,2022,2022, 3.13 , 3.41 , 3.57 , 2.90 , 2.55 , 3.11 ,sangat memuaskan,mahasiswa,tidak tepat
+170,2017020003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.24 , -   , 3.73 , 3.21 , 1.50 , 2.11 ,sangat memuaskan,mahasiswa,tidak tepat
+171,2017020002,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.19 , -   , 3.41 , 2.89 , 1.50 , 1.95 ,sangat memuaskan,,tidak tepat
+172,2017020006,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.12 , -   , 2.68 , 2.84 , 2.85 , 2.09 ,sangat memuaskan,bekerja,tidak tepat
+173,2017030015,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 2.63 , 2.67 , 2.81 , 2.29 , 2.14 , 2.48 ,memuaskan,,tidak tepat
+174,2017030034,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.01 , 3.00 , 3.00 , 2.71 , 3.23 , 2.99 ,sangat memuaskan,bekerja,tidak tepat
+175,2017030035,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.30 , 3.14 , 3.10 , 2.62 , 3.32 , 3.05 ,sangat memuaskan,,tidak tepat
+176,2017030036,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.12 , 2.86 , 3.00 , 2.71 , 3.18 , 2.94 ,sangat memuaskan,mahasiswa,tidak tepat
+177,2017030023,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.40 , 3.52 , 3.19 , 3.00 , 3.18 , 3.22 ,sangat memuaskan,mahasiswa,tidak tepat
+178,2017030033,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.08 , 2.76 , 2.81 , 2.71 , 3.09 , 2.84 ,sangat memuaskan,mahasiswa,tidak tepat
+179,2017030046,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.17 , 3.57 , 2.81 , 3.00 , 3.14 , 3.13 ,sangat memuaskan,mahasiswa,tidak tepat
+180,2017030022,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.39 , 3.57 , 3.48 , 3.19 , 3.59 , 3.46 ,sangat memuaskan,,tidak tepat
+181,2017030045,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.05 , 3.52 , 2.90 , 2.43 , 3.00 , 2.96 ,sangat memuaskan,bekerja,tidak tepat
+182,2017030041,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 2.79 , 2.43 , 2.90 , 2.19 , 2.00 , 2.38 ,memuaskan,,tidak tepat
+183,2017040020,laki-laki,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.00 , 2.57 , 2.80 , 2.65 , 3.05 , 2.77 ,sangat memuaskan,mahasiswa,tidak tepat
+184,2017040006,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.01 , 2.74 , 2.70 , 2.76 , 2.35 , 2.64 ,sangat memuaskan,mahasiswa,tidak tepat
+185,2017040002,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.29 , 3.39 , 3.15 , 2.29 , 2.90 , 2.93 ,sangat memuaskan,mahasiswa,tidak tepat
+186,2017040021,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 2.79 , 2.83 , 2.90 , 2.65 , 2.55 , 2.73 ,memuaskan,bekerja,tidak tepat
+187,2017040013,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.15 , 3.48 , 2.95 , 3.06 , 3.05 , 3.14 ,sangat memuaskan,,tidak tepat
+188,2017040001,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.17 , 3.30 , 2.95 , 2.76 , 3.25 , 3.07 ,sangat memuaskan,,tidak tepat
+189,2017040019,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.09 , 3.09 , 3.10 , 2.53 , 2.80 , 2.88 ,sangat memuaskan,,tidak tepat
+190,2017030023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2023,2023, 2.89 , 3.00 , 3.20 , 3.43 , 3.30 , 3.23 ,memuaskan,mahasiswa,tidak tepat
+191,2017010001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2023,2023, 3.14 , 2.59 , 3.35 , 3.29 , 3.15 , 3.10 ,sangat memuaskan,bekerja,tidak tepat
+192,2017070014,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2017,2023,2023, 3.02 , 2.50 , 2.86 , 2.35 , 2.00 , 2.43 ,sangat memuaskan,bekerja,tidak tepat
+193,2018020007,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2018,2023,2023, 3.39 , 3.33 , 2.75 , 3.47 , 0.45 , 2.50 ,sangat memuaskan,mahasiswa,tidak tepat
+194,2018020002,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2018,2023,2023, 3.17 , 2.52 , 2.63 , 2.68 , 3.00 , 2.71 ,sangat memuaskan,,tidak tepat
+195,2018090002,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,agribisnis,2018,2023,2023, 3.18 , 2.80 , 3.00 , 3.45 , 3.17 , 3.11 ,sangat memuaskan,bekerja,tidak tepat
+196,2018030009,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 3.12 , 2.67 , 3.00 , 2.90 , 2.68 , 2.81 ,sangat memuaskan,mahasiswa,tidak tepat
+197,2018030004,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 3.17 , 3.10 , 3.00 , 3.00 , 3.00 , 3.03 ,sangat memuaskan,mahasiswa,tidak tepat
+198,2018030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 2.87 , 2.90 , 2.90 , 2.52 , 2.50 , 2.71 ,memuaskan,,tidak tepat
+199,2018030022,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023,, 2.81 , 2.48 , 2.71 , 3.00 , 2.75 ,,,tidak tepat
+200,2018030021,perempuan,,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 3.41 , 3.19 , 3.52 , 3.10 , 3.55 , 3.34 ,sangat memuaskan,bekerja,tepat
+201,2018030015,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 2.94 , 2.90 , 3.00 , 2.90 , 2.68 , 2.87 ,memuaskan,mahasiswa,tepat
+202,2018030010,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 2.91 , 3.33 , 3.09 , 3.45 , 3.20 , 3.27 ,memuaskan,bekerja,tepat
+203,2018030018,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 3.41 , 3.29 , 3.33 , 3.10 , 3.55 , 3.32 ,sangat memuaskan,bekerja,tepat
+204,2018040011,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2018,2023,2023, 3.13 , 3.17 , 3.40 , 3.29 , 3.00 , 3.22 ,sangat memuaskan,mahasiswa,tidak tepat
+205,2018010001,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2018,2023,2023, 3.09 , 3.00 , 3.35 , 3.00 , 3.00 , 3.09 ,sangat memuaskan,mahasiswa,tidak tepat
+206,2018070006,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2018,2023,2023, 3.08 , 2.64 , 2.67 , 2.50 , 2.00 , 2.45 ,sangat memuaskan,bekerja,tidak tepat
+207,2018050007,perempuan,,non-oap,fakultas teknik dan pertanian,teknik mesin,2018,2023,2023, 3.41 , 3.38 , 3.00 , 3.10 , 3.45 , 3.23 ,sangat memuaskan,mahasiswa,tidak tepat
+208,2018050004,laki-laki,,oap,fakultas teknik dan pertanian,teknik mesin,2018,2023,2023, 3.51 , 3.19 , 3.24 , 3.62 , 3.30 , 3.34 ,sangat memuaskan,bekerja,tidak tepat
+209,2019050010,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2019,2021,2022, 3.20 , 2.84 , 3.30 , 3.00 , 3.00 , 3.04 ,sangat memuaskan,bekerja,tepat
+210,2019020007,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.60 , 3.33 , 3.35 , 3.38 , 3.39 , 3.36 ,sangat memuaskan,bekerja,tepat
+211,2019020005,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.65 , 3.19 , 3.22 , 3.63 , 3.65 , 3.42 ,sangat memuaskan,bekerja,tepat
+212,2019020008,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.50 , 3.33 , 3.09 , 3.45 , 3.20 , 3.27 ,sangat memuaskan,bekerja,tepat
+213,2019020003,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.72 , 3.52 , 3.43 , 3.63 , 3.63 , 3.55 ,sangat memuaskan,bekerja,tepat
+214,2019030024,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2019,2023,2023, 3.85 , 3.62 , 3.52 , 3.62 , 3.55 , 3.58 ,sangat memuaskan,bekerja,tepat
+215,20190300009,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2019,2022,2023, 3.02 , 2.71 , 2.90 , 3.19 , 2.27 , 2.77 ,sangat memuaskan,mahasiswa,tepat
+216,20192001005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2019,2023,2023, 3.23 , 3.00 , 2.65 , 2.90 , 2.85 , 2.85 ,sangat memuaskan,bekerja,tepat
+217,2019060011,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2019,2023,2023, 3.47 , 3.57 , 3.45 , 3.00 , 3.00 , 3.26 ,sangat memuaskan,mahasiswa,tepat
+218,2019060012,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2019,2023,2023, 3.42 , 3.57 , 3.45 , 3.00 , 3.00 , 3.26 ,sangat memuaskan,mahasiswa,tepat
+219,2020204011,perempuan,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2020,2023,2023, 2.60 , 3.00 , 3.21 , -   , 3.87 , 2.52 ,memuaskan,,tepat
+220,2020204012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2020,2023,2023, 2.66 , 3.00 , 3.21 , 1.41 , 3.87 , 2.87 ,memuaskan,bekerja,tepat
+221,2020201001,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2020,2023,2023, 3.23 , -   , 2.21 , 2.17 , 2.75 , 1.78 ,sangat memuaskan,bekerja,tepat
+,,,,,,,,,,,,,,,,,,
+`;
+
+        // Global Workbench State
+        const state = {
+            fileName: 'dataset_mahasiswa.csv',
+            rawHeaders: [],
+            rawRows: [],
+            idCol: 'nim',
+            featureCols: ['tahun_masuk', 'tahun_yudisium', 'ips1', 'ips2', 'ips3', 'ips4'],
+            targetCol: 'keterangan',
+            positiveLabel: 'tepat',
+            negativeLabel: 'tidak tepat',
+            splitRatio: 0.8,
+            normMode: 'minmax',
+            mins: [],
+            maxs: [],
+            validSamples: [],
+            trainSet: [],
+            testSet: [],
+            datasetFilter: 'all',
+            evalSubset: 'test',
+            evalClassFilter: 'all',
+            showAllStages: true,
+            activeStage: 1,
+            isDarkMode: false,
+
+            // JST Model State
+            algorithm: 'perceptron',
+            lr: 0.2,
+            threshold: 0.2,
+            maxEpochs: 30,
+            currentEpoch: 0,
+            sampleIndex: 0,
+            weightUpdates: 0,
+            weights: [],
+            bias: -0.2,
+            mlpHiddenSize: 3,
+            mlpW1: [],
+            mlpB1: [],
+            mlpW2: [],
+            mlpB2: 0.0,
+
+            epochMSEHistory: [],
+            epochTestAccHistory: [],
+            sampleErrorsInEpoch: [],
+            isAutoRunning: false,
+            autoTimer: null
+        };
+
+        let chartInstance = null;
+
+        // =========================================================================
+        // 0. THEME SWITCHER (DARK MODE & LIGHT MODE)
+        // =========================================================================
+        function initTheme() {
+            const saved = localStorage.getItem('jst_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) {
+                setThemeMode(true);
+            } else {
+                setThemeMode(false);
+            }
+        }
+
+        function toggleTheme() {
+            setThemeMode(!state.isDarkMode);
+        }
+
+        function setThemeMode(isDark) {
+            state.isDarkMode = isDark;
+            const html = document.documentElement;
+            const iconSun = document.getElementById('theme-icon-sun');
+            const iconMoon = document.getElementById('theme-icon-moon');
+            const lblTheme = document.getElementById('lbl-theme');
+
+            if (isDark) {
+                html.classList.add('dark');
+                localStorage.setItem('jst_theme', 'dark');
+                if (iconSun) iconSun.classList.remove('hidden');
+                if (iconMoon) iconMoon.classList.add('hidden');
+                if (lblTheme) lblTheme.innerText = 'Gelap';
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('jst_theme', 'light');
+                if (iconSun) iconSun.classList.add('hidden');
+                if (iconMoon) iconMoon.classList.remove('hidden');
+                if (lblTheme) lblTheme.innerText = 'Terang';
+            }
+
+            drawNeuralNetworkCanvas();
+            updateChartTheme();
+        }
+
+        function updateChartTheme() {
+            if (!chartInstance) return;
+            const isDark = state.isDarkMode;
+            const gridColor = isDark ? '#1F293D' : '#F1F5F9';
+            const tickColor = isDark ? '#94A3B8' : '#64748B';
+            const legendColor = isDark ? '#E2E8F0' : '#334155';
+
+            chartInstance.options.scales.x.grid.color = gridColor;
+            chartInstance.options.scales.x.ticks.color = tickColor;
+            chartInstance.options.scales.y.grid.color = gridColor;
+            chartInstance.options.scales.y.ticks.color = tickColor;
+            chartInstance.options.plugins.legend.labels.color = legendColor;
+            chartInstance.update();
+        }
+
+        // =========================================================================
+        // 1. SMART CSV PARSER & AUTO-CLEANER
+        // =========================================================================
+        function cleanCellValue(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[\u2007\u00A0\s]+/g, ' ').trim();
+        }
+
+        function parseCSVText(csvText, fileName = 'dataset_mahasiswa.csv') {
+            state.fileName = fileName;
+            document.getElementById('hdr-active-file').innerText = fileName;
+
+            const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
+            if (lines.length < 2) return;
+
+            function splitCSVLine(line) {
+                const res = [];
+                let cur = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const ch = line[i];
+                    if (ch === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (ch === ',' && !inQuotes) {
+                        res.push(cleanCellValue(cur));
+                        cur = '';
+                    } else {
+                        cur += ch;
+                    }
+                }
+                res.push(cleanCellValue(cur));
+                return res;
+            }
+
+            const rawHeaders = splitCSVLine(lines[0]).filter(h => h.length > 0);
+            const rows = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const cells = splitCSVLine(lines[i]);
+                const hasContent = cells.some(c => c !== '' && c !== '-');
+                if (!hasContent) continue;
+                const obj = {};
+                rawHeaders.forEach((h, idx) => {
+                    obj[h] = cells[idx] !== undefined ? cells[idx] : '';
+                });
+                rows.push(obj);
+            }
+
+            state.rawHeaders = rawHeaders;
+            state.rawRows = rows;
+            document.getElementById('stat-total-raw').innerText = `Total: ${rows.length} baris`;
+
+            const idPriority = ['nim', 'id_mahasiswa', 'id', 'npm', 'nama', 'no'];
+            let detectedId = null;
+            for (const pid of idPriority) {
+                detectedId = rawHeaders.find(h => h.trim().toLowerCase() === pid);
+                if (detectedId) break;
+            }
+            state.idCol = detectedId || rawHeaders[0];
+
+            populateColumnControls();
+        }
+
+        function isNumericValue(v) {
+            if (v === '' || v === '-' || v === ' -') return false;
+            const n = Number(v.replace(',', '.'));
+            return !Number.isNaN(n) && Number.isFinite(n);
+        }
+
+        function populateColumnControls() {
+            const numericCols = [];
+            const targetCandidates = [];
+
+            state.rawHeaders.forEach(col => {
+                const colLower = col.toLowerCase();
+                if (colLower === 'no' || colLower === 'nim') return;
+                let numCount = 0;
+                const distinctVals = new Set();
+                state.rawRows.forEach(r => {
+                    const v = r[col];
+                    if (v && v !== '-') {
+                        distinctVals.add(v.toLowerCase());
+                        if (isNumericValue(v)) numCount++;
+                    }
+                });
+                if (numCount >= state.rawRows.length * 0.25) {
+                    numericCols.push(col);
+                }
+                if (distinctVals.size >= 2 && distinctVals.size <= 10) {
+                    targetCandidates.push(col);
+                }
+            });
+
+            if (targetCandidates.length === 0 && state.rawHeaders.length > 0) {
+                targetCandidates.push(state.rawHeaders[state.rawHeaders.length - 1]);
+            }
+
+            const targetSelect = document.getElementById('select-target-col');
+            targetSelect.innerHTML = '';
+            targetCandidates.forEach(col => {
+                const opt = document.createElement('option');
+                opt.value = col;
+                opt.textContent = col;
+                targetSelect.appendChild(opt);
+            });
+
+            if (targetCandidates.includes(state.targetCol)) {
+                targetSelect.value = state.targetCol;
+            } else {
+                state.targetCol = targetCandidates[targetCandidates.length - 1];
+                targetSelect.value = state.targetCol;
+            }
+
+            const validFeats = state.featureCols.filter(f => numericCols.includes(f) && f !== state.targetCol);
+            if (validFeats.length >= 2) {
+                state.featureCols = validFeats;
+            } else {
+                state.featureCols = numericCols.filter(f => f !== state.targetCol).slice(0, 4);
+            }
+
+            renderFeatureCheckboxes(numericCols);
+            populatePositiveClassOptions();
+            rebuildProcessedDataset();
+        }
+
+        function renderFeatureCheckboxes(numericCols) {
+            const container = document.getElementById('feature-checkbox-list');
+            container.innerHTML = '';
+            numericCols.forEach(col => {
+                if (col === state.targetCol) return;
+                const checked = state.featureCols.includes(col);
+                const label = document.createElement('label');
+                label.className = 'flex items-center gap-2 px-2 py-1 rounded hover:bg-white dark:hover:bg-slate-800 text-xs text-slate-700 dark:text-slate-300 cursor-pointer select-none';
+                label.innerHTML = `
+                    <input type="checkbox" value="${col}" ${checked ? 'checked' : ''} onchange="onFeatureCheckboxChange()" class="feat-chk rounded border-slate-300 dark:border-slate-600 text-navy-700 dark:text-sky-500 focus:ring-navy-700">
+                    <span class="font-mono truncate" title="${col}">${col}</span>
+                `;
+                container.appendChild(label);
+            });
+            document.getElementById('selected-feat-count').innerText = `${state.featureCols.length} fitur dipilih`;
+        }
+
+        function onFeatureCheckboxChange() {
+            const chks = Array.from(document.querySelectorAll('.feat-chk:checked')).map(el => el.value);
+            if (chks.length === 0) {
+                const first = document.querySelector('.feat-chk');
+                if (first) {
+                    first.checked = true;
+                    state.featureCols = [first.value];
+                }
+            } else {
+                state.featureCols = chks;
+            }
+            document.getElementById('selected-feat-count').innerText = `${state.featureCols.length} fitur dipilih`;
+            document.getElementById('scenario-preset').value = 'custom';
+            rebuildProcessedDataset();
+        }
+
+        function onTargetColumnChange() {
+            state.targetCol = document.getElementById('select-target-col').value;
+            document.getElementById('scenario-preset').value = 'custom';
+            populatePositiveClassOptions();
+            rebuildProcessedDataset();
+        }
+
+        function populatePositiveClassOptions() {
+            const counts = {};
+            state.rawRows.forEach(r => {
+                const v = (r[state.targetCol] || '').trim();
+                if (!v || v === '-' || v.startsWith('-')) return;
+                const key = v.toLowerCase();
+                counts[key] = (counts[key] || 0) + 1;
+            });
+
+            const uniqueVals = Object.keys(counts);
+            const posSelect = document.getElementById('select-pos-class');
+            posSelect.innerHTML = '';
+            uniqueVals.forEach(val => {
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = `${val} (${counts[val]} data)`;
+                posSelect.appendChild(opt);
+            });
+
+            const preferred = ['tepat', 'sangat memuaskan', 'bekerja', '1', 'lulus', 'ya', 'yes', 'positif'];
+            const match = preferred.find(p => uniqueVals.includes(p));
+            state.positiveLabel = match || uniqueVals[0] || '1';
+            posSelect.value = state.positiveLabel;
+        }
+
+        function applyScenarioPreset() {
+            const preset = document.getElementById('scenario-preset').value;
+            if (preset === 'ketepatan') {
+                state.targetCol = 'keterangan';
+                state.featureCols = ['tahun_masuk', 'tahun_yudisium', 'ips1', 'ips2', 'ips3', 'ips4'].filter(c => state.rawHeaders.includes(c));
+                state.positiveLabel = 'tepat';
+            } else if (preset === 'predikat') {
+                state.targetCol = 'predikat_yudisium';
+                state.featureCols = ['ips1', 'ips2', 'ips3', 'ips4', 'ipk_yudisium'].filter(c => state.rawHeaders.includes(c));
+                state.positiveLabel = 'sangat memuaskan';
+            } else if (preset === 'bekerja') {
+                state.targetCol = 'status_bekerja';
+                state.featureCols = ['ips1', 'ips2', 'ips3', 'ips4', 'ipk(1-4)'].filter(c => state.rawHeaders.includes(c));
+                state.positiveLabel = 'bekerja';
+            } else {
+                return;
+            }
+            populateColumnControls();
+        }
+
+        function proportionalInterleave(posArr, negArr) {
+            const result = [];
+            const na = posArr.length;
+            const nb = negArr.length;
+            const total = na + nb;
+            let ia = 0, ib = 0;
+            for (let step = 1; step <= total; step++) {
+                if (ia < na && (ib >= nb || (ia / na) <= (ib / nb))) {
+                    result.push(posArr[ia++]);
+                } else if (ib < nb) {
+                    result.push(negArr[ib++]);
+                }
+            }
+            return result;
+        }
+
+        function rebuildProcessedDataset() {
+            state.splitRatio = parseFloat(document.getElementById('select-split-ratio').value) || 0.8;
+            state.normMode = document.getElementById('select-norm-mode').value;
+            state.positiveLabel = document.getElementById('select-pos-class').value;
+
+            const extracted = [];
+            const otherLabels = new Set();
+
+            state.rawRows.forEach((row, idx) => {
+                const rawTarget = (row[state.targetCol] || '').trim().toLowerCase();
+                if (!rawTarget || rawTarget === '-' || rawTarget.startsWith('-')) return;
+
+                const rawInputs = [];
+                for (let f of state.featureCols) {
+                    const cell = (row[f] || '').replace(',', '.').trim();
+                    if (!isNumericValue(cell)) return;
+                    rawInputs.push(parseFloat(cell));
+                }
+
+                const isPos = rawTarget === state.positiveLabel;
+                if (!isPos) otherLabels.add(rawTarget);
+
+                extracted.push({
+                    rowNo: idx + 1,
+                    id: row[state.idCol] || `Baris-${idx + 1}`,
+                    rawInputs,
+                    normInputs: [...rawInputs],
+                    target: isPos ? 1 : 0,
+                    targetText: rawTarget
+                });
+            });
+
+            state.negativeLabel = Array.from(otherLabels).join(' / ') || 'lainnya';
+
+            const nFeat = state.featureCols.length;
+            state.mins = new Array(nFeat).fill(0);
+            state.maxs = new Array(nFeat).fill(1);
+
+            if (extracted.length > 0) {
+                for (let j = 0; j < nFeat; j++) {
+                    let minV = Infinity, maxV = -Infinity;
+                    extracted.forEach(item => {
+                        if (item.rawInputs[j] < minV) minV = item.rawInputs[j];
+                        if (item.rawInputs[j] > maxV) maxV = item.rawInputs[j];
+                    });
+                    state.mins[j] = minV;
+                    state.maxs[j] = maxV;
+                }
+
+                extracted.forEach(item => {
+                    item.normInputs = item.rawInputs.map((v, j) => {
+                        if (state.normMode === 'raw') return v;
+                        const span = state.maxs[j] - state.mins[j];
+                        return span === 0 ? 0.5 : (v - state.mins[j]) / span;
+                    });
+                });
+            }
+
+            const posList = extracted.filter(x => x.target === 1);
+            const negList = extracted.filter(x => x.target === 0);
+
+            const testMod = state.splitRatio >= 0.79 ? 5 : (state.splitRatio >= 0.74 ? 4 : 3);
+            const trainPos = [], testPos = [];
+            posList.forEach((item, i) => {
+                if (i % testMod === (testMod - 1)) {
+                    item.split = 'test';
+                    testPos.push(item);
+                } else {
+                    item.split = 'train';
+                    trainPos.push(item);
+                }
+            });
+
+            const trainNeg = [], testNeg = [];
+            negList.forEach((item, i) => {
+                if (i % testMod === (testMod - 1)) {
+                    item.split = 'test';
+                    testNeg.push(item);
+                } else {
+                    item.split = 'train';
+                    trainNeg.push(item);
+                }
+            });
+
+            state.trainSet = proportionalInterleave(trainPos, trainNeg);
+            state.testSet = proportionalInterleave(testPos, testNeg);
+            state.validSamples = [...state.trainSet, ...state.testSet];
+
+            document.getElementById('stat-valid-rows').innerText = state.validSamples.length;
+            document.getElementById('stat-train-rows').innerText = state.trainSet.length;
+            document.getElementById('stat-test-rows').innerText = state.testSet.length;
+            document.getElementById('hdr-valid-count').innerText = state.validSamples.length;
+            const mobVal = document.getElementById('mob-valid-count');
+            if (mobVal) mobVal.innerText = state.validSamples.length;
+
+            document.getElementById('stat-encoding-info').innerText = `Target [${state.targetCol}]: "${state.positiveLabel}" → 1 (${posList.length}) | "${state.negativeLabel}" → 0 (${negList.length})`;
+            document.getElementById('dataset-class-balance').innerText = `Kelas 1: ${posList.length} | Kelas 0: ${negList.length}`;
+
+            renderDatasetTable();
+            buildLivePredictionInputs();
+            resetModel();
+        }
+
+        function setDatasetTableFilter(filter) {
+            state.datasetFilter = filter;
+            ['all', 'train', 'test'].forEach(k => {
+                const btn = document.getElementById(`tab-ds-${k}`);
+                if (k === filter) {
+                    btn.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+                }
+            });
+            renderDatasetTable();
+        }
+
+        function renderDatasetTable() {
+            const showNorm = document.getElementById('chk-show-norm').checked;
+            const thead = document.getElementById('dataset-thead');
+            const tbody = document.getElementById('dataset-tbody');
+
+            let headHTML = `<tr>
+                <th class="px-3 py-2 text-slate-700 dark:text-slate-300 whitespace-nowrap min-w-[50px] font-bold">#</th>
+                <th class="px-3 py-2 text-slate-800 dark:text-slate-100 whitespace-nowrap min-w-[120px] font-bold">${state.idCol.toUpperCase()}</th>
+                <th class="px-2.5 py-2 text-center text-slate-700 dark:text-slate-300 whitespace-nowrap min-w-[70px] font-semibold">Split</th>`;
+            state.featureCols.forEach((f, idx) => {
+                headHTML += `<th class="px-3 py-2 text-right bg-navy-50/60 dark:bg-slate-800 text-navy-800 dark:text-sky-300 border-x border-slate-200/60 dark:border-slate-800 whitespace-nowrap min-w-[95px]">X${idx + 1}: ${f}</th>`;
+            });
+            headHTML += `<th class="px-4 py-2 text-center bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-300 whitespace-nowrap min-w-[145px]">Target (${state.targetCol})</th></tr>`;
+            thead.innerHTML = headHTML;
+
+            let rowsToShow = state.validSamples;
+            if (state.datasetFilter === 'train') rowsToShow = state.trainSet;
+            if (state.datasetFilter === 'test') rowsToShow = state.testSet;
+
+            let bodyHTML = '';
+            rowsToShow.forEach((item, idx) => {
+                const isCurrentTrainSample = (item.split === 'train' && state.trainSet[state.sampleIndex] === item && state.currentEpoch > 0);
+                const rowBg = isCurrentTrainSample ? 'bg-amber-100/90 dark:bg-amber-950/50' : 'hover:bg-slate-100/80 dark:hover:bg-slate-800/60';
+                const splitBadge = item.split === 'train'
+                    ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Latih</span>`
+                    : `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100/80 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">Uji</span>`;
+
+                bodyHTML += `<tr class="${rowBg}">
+                    <td class="px-3 py-1.5 font-mono font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">${idx + 1}</td>
+                    <td class="px-3 py-1.5 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">${item.id}</td>
+                    <td class="px-2.5 py-1.5 text-center font-sans whitespace-nowrap">${splitBadge}</td>`;
+
+                item.rawInputs.forEach((rawVal, j) => {
+                    const valDisp = showNorm ? item.normInputs[j].toFixed(3) : (Number.isInteger(rawVal) ? rawVal : rawVal.toFixed(2));
+                    bodyHTML += `<td class="px-3 py-1.5 text-right font-mono text-slate-800 dark:text-slate-200 bg-navy-50/20 dark:bg-slate-800/40 border-x border-slate-100 dark:border-slate-800/60 whitespace-nowrap">${valDisp}</td>`;
+                });
+
+                const targetBadge = item.target === 1
+                    ? `<span class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-md font-semibold text-[11px] whitespace-nowrap bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 shadow-2xs">1 (${item.targetText})</span>`
+                    : `<span class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-md font-semibold text-[11px] whitespace-nowrap bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 shadow-2xs">0 (${item.targetText})</span>`;
+
+                bodyHTML += `<td class="px-3 py-1.5 text-center whitespace-nowrap min-w-[145px]">${targetBadge}</td></tr>`;
+            });
+
+            tbody.innerHTML = bodyHTML || `<tr><td colspan="${state.featureCols.length + 4}" class="p-6 text-center text-slate-400 font-sans">Tidak ada baris valid untuk kombinasi kolom ini.</td></tr>`;
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('scenario-preset').value = 'custom';
+                parseCSVText(e.target.result, file.name);
+            };
+            reader.readAsText(file);
+        }
+
+        function resetToDefaultCSV() {
+            document.getElementById('csv-file-input').value = '';
+            document.getElementById('scenario-preset').value = 'ketepatan';
+            state.idCol = 'nim';
+            state.targetCol = 'keterangan';
+            state.featureCols = ['tahun_masuk', 'tahun_yudisium', 'ips1', 'ips2', 'ips3', 'ips4'];
+            state.positiveLabel = 'tepat';
+            parseCSVText(DEFAULT_CSV_RAW, 'dataset_mahasiswa.csv');
+        }
+
+        // =========================================================================
+        // 2. JST MATHEMATICAL ENGINE (Perceptron, Delta, Backprop MLP, Hebb)
+        // =========================================================================
+        function sigmoid(z) {
+            const clamped = Math.max(-30, Math.min(30, z));
+            return 1 / (1 + Math.exp(-clamped));
+        }
+
+        function initMLPWeights(nFeat) {
+            state.mlpW1 = [];
+            state.mlpB1 = [];
+            state.mlpW2 = [];
+            for (let h = 0; h < state.mlpHiddenSize; h++) {
+                const row = [];
+                for (let j = 0; j < nFeat; j++) {
+                    const seed = ((h + 1) * 7 + (j + 1) * 13) % 19;
+                    row.push(((seed / 19) - 0.45) * 0.6);
+                }
+                state.mlpW1.push(row);
+                state.mlpB1.push((h - 1) * 0.15);
+                state.mlpW2.push((h % 2 === 0 ? 0.45 : -0.35));
+            }
+            state.mlpB2 = -0.1;
+        }
+
+        function resetModel() {
+            stopAutoRun();
+            state.algorithm = document.getElementById('param-algo').value;
+            state.lr = parseFloat(document.getElementById('param-lr').value) || 0.2;
+            state.threshold = parseFloat(document.getElementById('param-threshold').value) || 0.2;
+            state.maxEpochs = parseInt(document.getElementById('param-epochs').value) || 30;
+
+            const nFeat = state.featureCols.length;
+            state.weights = new Array(nFeat).fill(0.0);
+            state.bias = -0.2;
+            initMLPWeights(nFeat);
+
+            state.currentEpoch = 0;
+            state.sampleIndex = 0;
+            state.weightUpdates = 0;
+            state.epochMSEHistory = [];
+            state.epochTestAccHistory = [];
+            state.sampleErrorsInEpoch = [];
+
+            document.getElementById('arch-badge').innerText = state.algorithm === 'backprop'
+                ? `MLP (${nFeat}–${state.mlpHiddenSize}–1)`
+                : `Single-Layer (${nFeat}–1)`;
+
+            resetChart();
+            clearLogs();
+            updateStatusPill('Siap Dilatih', 'neutral');
+            document.getElementById('math-inspector-box').innerHTML = `<p class="text-slate-500 dark:text-slate-400 font-sans">Model diinisialisasi (<code class="font-mono text-slate-700 dark:text-slate-300">${state.algorithm.toUpperCase()}</code>). Klik <b>+1 Sampel</b>, <b>+1 Epoch</b>, atau <b>Latih Selesai</b> untuk memulai.</p>`;
+            document.getElementById('inspector-step-badge').innerText = 'Epoch 0';
+
+            updateAllDisplays();
+        }
+
+        function onAlgorithmChange() {
+            const algo = document.getElementById('param-algo').value;
+            if (algo === 'backprop') {
+                document.getElementById('param-lr').value = '0.5';
+                document.getElementById('param-epochs').value = '50';
+            } else if (algo === 'delta') {
+                document.getElementById('param-lr').value = '0.15';
+                document.getElementById('param-epochs').value = '35';
+            } else if (algo === 'perceptron') {
+                document.getElementById('param-lr').value = '0.2';
+                document.getElementById('param-epochs').value = '30';
+            } else if (algo === 'hebb') {
+                document.getElementById('param-lr').value = '0.05';
+                document.getElementById('param-epochs').value = '10';
+            }
+            resetModel();
+        }
+
+        function forwardPredict(xNorm) {
+            const nFeat = state.featureCols.length;
+            if (state.algorithm === 'backprop') {
+                const hiddenAct = [];
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    let z = state.mlpB1[h];
+                    for (let j = 0; j < nFeat; j++) {
+                        z += xNorm[j] * state.mlpW1[h][j];
+                    }
+                    hiddenAct.push(sigmoid(z));
+                }
+                let netOut = state.mlpB2;
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    netOut += hiddenAct[h] * state.mlpW2[h];
+                }
+                const prob = sigmoid(netOut);
+                const predClass = prob >= 0.5 ? 1 : 0;
+                return { netInput: netOut, rawOutput: prob, predClass, hiddenAct };
+            }
+
+            let net = state.bias;
+            for (let j = 0; j < nFeat; j++) {
+                const xVal = state.algorithm === 'hebb' ? (xNorm[j] * 2 - 1) : xNorm[j];
+                net += xVal * state.weights[j];
+            }
+
+            if (state.algorithm === 'perceptron') {
+                const predClass = net >= state.threshold ? 1 : 0;
+                return { netInput: net, rawOutput: predClass, predClass };
+            } else if (state.algorithm === 'delta') {
+                const predClass = net >= 0.5 ? 1 : 0;
+                return { netInput: net, rawOutput: net, predClass };
+            } else {
+                const predClass = net >= 0 ? 1 : 0;
+                return { netInput: net, rawOutput: net >= 0 ? 1 : -1, predClass };
+            }
+        }
+
+        function trainSingleSample(sample, renderImmediate = true) {
+            const x = sample.normInputs;
+            const t = sample.target;
+            const nFeat = state.featureCols.length;
+
+            const fwd = forwardPredict(x);
+            let error = t - fwd.rawOutput;
+            let formulaNote = '';
+
+            if (state.algorithm === 'perceptron') {
+                error = t - fwd.predClass;
+                if (error !== 0) {
+                    for (let j = 0; j < nFeat; j++) {
+                        state.weights[j] += state.lr * error * x[j];
+                    }
+                    state.bias += state.lr * error;
+                    state.weightUpdates++;
+                    formulaNote = `Error ≠ 0 → Bobot diperbarui: Δwᵢ = ${state.lr} × (${error}) × xᵢ`;
+                } else {
+                    formulaNote = `Prediksi Tepat (Error = 0) → Bobot tetap`;
+                }
+            } else if (state.algorithm === 'delta') {
+                error = t - fwd.netInput;
+                for (let j = 0; j < nFeat; j++) {
+                    state.weights[j] += state.lr * error * x[j];
+                }
+                state.bias += state.lr * error;
+                state.weightUpdates++;
+                formulaNote = `LMS Update: e = ${t} - ${fwd.netInput.toFixed(3)} = ${error.toFixed(3)} | Δwᵢ = α·e·xᵢ`;
+            } else if (state.algorithm === 'hebb') {
+                const tBip = t === 1 ? 1 : -1;
+                const yBip = fwd.netInput >= 0 ? 1 : -1;
+                error = (t - fwd.predClass);
+                for (let j = 0; j < nFeat; j++) {
+                    const xBip = x[j] * 2 - 1;
+                    state.weights[j] += state.lr * xBip * tBip;
+                }
+                state.bias += state.lr * tBip;
+                state.weightUpdates++;
+                formulaNote = `Hebb Bipolar: t_bip = ${tBip}, y_bip = ${yBip} | Δwᵢ = α·x_bip·t_bip`;
+            } else if (state.algorithm === 'backprop') {
+                const y = fwd.rawOutput;
+                error = t - y;
+                const deltaOut = error * y * (1 - y);
+
+                const deltaHidden = [];
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    const hAct = fwd.hiddenAct[h];
+                    deltaHidden.push(deltaOut * state.mlpW2[h] * hAct * (1 - hAct));
+                }
+
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    state.mlpW2[h] += state.lr * deltaOut * fwd.hiddenAct[h];
+                }
+                state.mlpB2 += state.lr * deltaOut;
+
+                for (let j = 0; j < nFeat; j++) {
+                    let effW = 0;
+                    for (let h = 0; h < state.mlpHiddenSize; h++) {
+                        state.mlpW1[h][j] += state.lr * deltaHidden[h] * x[j];
+                        effW += state.mlpW1[h][j] * state.mlpW2[h];
+                    }
+                    state.weights[j] = effW;
+                }
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    state.mlpB1[h] += state.lr * deltaHidden[h];
+                }
+                state.bias = state.mlpB2;
+                state.weightUpdates++;
+                formulaNote = `Backprop Sigmoid: ŷ=${y.toFixed(3)}, δ_out=${deltaOut.toFixed(4)} → Update Hidden & Output`;
+            }
+
+            state.sampleErrorsInEpoch.push(error * error);
+
+            if (renderImmediate) {
+                updateMathInspector(sample, fwd, error, formulaNote);
+            }
+        }
+
+        function updateMathInspector(sample, fwd, error, formulaNote) {
+            document.getElementById('inspector-step-badge').innerText = `Epoch ${state.currentEpoch + 1} • Sampel #${state.sampleIndex + 1} (${sample.id})`;
+            const xTerms = sample.normInputs.map((v, j) => `${v.toFixed(2)}·(${state.weights[j].toFixed(2)})`).join(' + ');
+            const statusColor = fwd.predClass === sample.target
+                ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800'
+                : 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800';
+            const box = document.getElementById('math-inspector-box');
+            box.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-1.5 border-b border-slate-200 dark:border-slate-800">
+                    <span>Mahasiswa: <b>${sample.id}</b> | Target (t) = <b>${sample.target}</b> (${sample.targetText})</span>
+                    <span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${statusColor}">Prediksi ŷ = ${fwd.predClass} (${fwd.predClass === sample.target ? 'Sesuai' : 'Meleset'})</span>
+                </div>
+                <div class="text-[11px] text-slate-600 dark:text-slate-400 pt-1">
+                    <div>net = ${state.bias.toFixed(2)} + [ ${xTerms} ] = <b>${fwd.netInput.toFixed(4)}</b></div>
+                    <div class="mt-0.5 text-slate-800 dark:text-slate-200">${formulaNote}</div>
+                </div>
+            `;
+        }
+
+        function stepOneSample() {
+            if (state.trainSet.length === 0) return;
+            syncParamsFromInputs();
+
+            if (state.currentEpoch >= state.maxEpochs) {
+                updateStatusPill('Batas Maksimum Epoch Tercapai', 'success');
+                return;
+            }
+
+            const sample = state.trainSet[state.sampleIndex];
+            trainSingleSample(sample, true);
+
+            state.sampleIndex++;
+            if (state.sampleIndex >= state.trainSet.length) {
+                finalizeEpoch();
+            } else {
+                updateStatusPill(`Melatih Sampel ${state.sampleIndex}/${state.trainSet.length}`, 'active');
+            }
+
+            updateAllDisplays();
+        }
+
+        function stepOneEpoch(silent = false) {
+            if (state.trainSet.length === 0) return;
+            syncParamsFromInputs();
+
+            if (state.currentEpoch >= state.maxEpochs) {
+                stopAutoRun();
+                updateStatusPill('Pelatihan Selesai (Max Epoch)', 'success');
+                return;
+            }
+
+            while (state.sampleIndex < state.trainSet.length) {
+                const isLast = (state.sampleIndex === state.trainSet.length - 1);
+                trainSingleSample(state.trainSet[state.sampleIndex], isLast && !silent);
+                state.sampleIndex++;
+            }
+            finalizeEpoch();
+
+            if (!silent) {
+                updateAllDisplays();
+            }
+        }
+
+        function finalizeEpoch() {
+            state.sampleIndex = 0;
+            state.currentEpoch++;
+
+            const mse = state.sampleErrorsInEpoch.length > 0
+                ? state.sampleErrorsInEpoch.reduce((a, b) => a + b, 0) / state.sampleErrorsInEpoch.length
+                : 0;
+            state.sampleErrorsInEpoch = [];
+            state.epochMSEHistory.push(mse);
+
+            const testEval = evaluateSubset(state.testSet);
+            state.epochTestAccHistory.push(testEval.accuracy);
+
+            addChartPoint(state.currentEpoch, mse, testEval.accuracy);
+            appendLog(`Epoch ${state.currentEpoch}: MSE Latih = ${mse.toFixed(4)} | Akurasi Uji = ${testEval.accuracy.toFixed(1)}% (${testEval.correct}/${testEval.total})`);
+
+            if (mse === 0 && state.algorithm === 'perceptron') {
+                stopAutoRun();
+                updateStatusPill(`Konvergen Sempurna pada Epoch ${state.currentEpoch}`, 'success');
+            } else if (state.currentEpoch >= state.maxEpochs) {
+                stopAutoRun();
+                updateStatusPill(`Selesai (${state.currentEpoch} Epoch)`, 'success');
+            } else {
+                updateStatusPill(`Berjalan — Epoch ${state.currentEpoch}/${state.maxEpochs}`, 'active');
+            }
+        }
+
+        function runFullTraining() {
+            stopAutoRun();
+            if (state.currentEpoch >= state.maxEpochs || state.currentEpoch > 0) {
+                resetModel();
+            }
+            syncParamsFromInputs();
+            for (let ep = state.currentEpoch; ep < state.maxEpochs; ep++) {
+                const isFinalEpoch = (ep === state.maxEpochs - 1);
+                stepOneEpoch(!isFinalEpoch);
+                const lastMSE = state.epochMSEHistory[state.epochMSEHistory.length - 1];
+                if (lastMSE === 0 && state.algorithm === 'perceptron') break;
+            }
+            if (state.trainSet.length > 0) {
+                const lastSample = state.trainSet[state.trainSet.length - 1];
+                const fwd = forwardPredict(lastSample.normInputs);
+                updateMathInspector(lastSample, fwd, lastSample.target - fwd.rawOutput, `Pelatihan selesai pada Epoch ${state.currentEpoch}. Model siap diuji pada Tahap 03.`);
+            }
+            updateAllDisplays();
+            runLivePrediction();
+        }
+
+        function toggleAutoRun() {
+            if (state.isAutoRunning) {
+                stopAutoRun();
+            } else {
+                if (state.currentEpoch >= state.maxEpochs) resetModel();
+                state.isAutoRunning = true;
+                document.getElementById('autorun-label').innerText = 'Jeda';
+                state.autoTimer = setInterval(() => {
+                    if (state.currentEpoch >= state.maxEpochs) {
+                        stopAutoRun();
+                    } else {
+                        stepOneEpoch(false);
+                    }
+                }, 160);
+            }
+        }
+
+        function stopAutoRun() {
+            state.isAutoRunning = false;
+            const lbl = document.getElementById('autorun-label');
+            if (lbl) lbl.innerText = 'Auto-Run';
+            if (state.autoTimer) {
+                clearInterval(state.autoTimer);
+                state.autoTimer = null;
+            }
+        }
+
+        function syncParamsFromInputs() {
+            state.lr = parseFloat(document.getElementById('param-lr').value) || 0.2;
+            state.threshold = parseFloat(document.getElementById('param-threshold').value) || 0.2;
+            state.maxEpochs = parseInt(document.getElementById('param-epochs').value) || 30;
+        }
+
+        // =========================================================================
+        // 3. EVALUATION, LIVE PREDICTION & VISUALIZATION RENDERERS
+        // =========================================================================
+        function evaluateSubset(subset) {
+            let tp = 0, tn = 0, fp = 0, fn = 0;
+            const details = subset.map(item => {
+                const fwd = forwardPredict(item.normInputs);
+                const pred = fwd.predClass;
+                const actual = item.target;
+                if (actual === 1 && pred === 1) tp++;
+                else if (actual === 0 && pred === 0) tn++;
+                else if (actual === 0 && pred === 1) fp++;
+                else if (actual === 1 && pred === 0) fn++;
+                return { item, fwd, pred, actual, correct: pred === actual };
+            });
+            const total = subset.length;
+            const correct = tp + tn;
+            const accuracy = total > 0 ? (correct / total) * 100 : 0;
+            return { total, correct, accuracy, tp, tn, fp, fn, details };
+        }
+
+        function updateAllDisplays() {
+            const trainEval = evaluateSubset(state.trainSet);
+            const testEval = evaluateSubset(state.testSet);
+            const lastMSE = state.epochMSEHistory.length > 0 ? state.epochMSEHistory[state.epochMSEHistory.length - 1] : 0;
+
+            document.getElementById('metric-epoch').innerText = `${state.currentEpoch} / ${state.maxEpochs}`;
+            document.getElementById('metric-sample').innerText = `Sampel #${state.sampleIndex}`;
+            document.getElementById('metric-mse').innerText = lastMSE.toFixed(4);
+            document.getElementById('metric-train-acc').innerText = `${trainEval.accuracy.toFixed(1)}%`;
+            document.getElementById('metric-train-ratio').innerText = `${trainEval.correct}/${trainEval.total} benar`;
+            document.getElementById('metric-test-acc').innerText = `${testEval.accuracy.toFixed(1)}%`;
+            document.getElementById('metric-test-ratio').innerText = `${testEval.correct}/${testEval.total} benar`;
+
+            document.getElementById('hdr-epoch').innerText = `${state.currentEpoch}/${state.maxEpochs}`;
+            document.getElementById('hdr-test-acc').innerText = `${testEval.accuracy.toFixed(1)}%`;
+            const mobEp = document.getElementById('mob-epoch');
+            if (mobEp) mobEp.innerText = `${state.currentEpoch}/${state.maxEpochs}`;
+            const mobAcc = document.getElementById('mob-test-acc');
+            if (mobAcc) mobAcc.innerText = `${testEval.accuracy.toFixed(1)}%`;
+
+            document.getElementById('lbl-weight-update-count').innerText = `${state.weightUpdates} pembaruan`;
+
+            renderWeightsGrid();
+            drawNeuralNetworkCanvas();
+            renderEvaluationTable();
+        }
+
+        function renderWeightsGrid() {
+            const grid = document.getElementById('weights-grid');
+            let html = '';
+            state.featureCols.forEach((col, j) => {
+                const w = state.weights[j] || 0;
+                const colorClass = w > 0.001
+                    ? 'text-emerald-700 dark:text-emerald-400'
+                    : (w < -0.001 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-300');
+                html += `
+                    <div class="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 px-3 py-2 flex items-center justify-between">
+                        <div class="truncate pr-2">
+                            <span class="font-mono text-[11px] font-bold text-slate-800 dark:text-slate-200">w${j + 1}</span>
+                            <span class="text-[11px] text-slate-500 dark:text-slate-400 block truncate" title="${col}">${col}</span>
+                        </div>
+                        <span class="font-mono text-xs font-semibold tnum ${colorClass}">${w >= 0 ? '+' : ''}${w.toFixed(3)}</span>
+                    </div>
+                `;
+            });
+            const b = state.bias || 0;
+            html += `
+                <div class="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800 px-3 py-2 flex items-center justify-between">
+                    <div>
+                        <span class="font-mono text-[11px] font-bold text-slate-800 dark:text-slate-200">Bias (b)</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 block">Intersep</span>
+                    </div>
+                    <span class="font-mono text-xs font-semibold tnum text-navy-700 dark:text-sky-400">${b >= 0 ? '+' : ''}${b.toFixed(3)}</span>
+                </div>
+            `;
+            grid.innerHTML = html;
+        }
+
+        function drawNeuralNetworkCanvas() {
+            const canvas = document.getElementById('nnCanvas');
+            if (!canvas) return;
+            const container = document.getElementById('canvas-container');
+            const isDark = state.isDarkMode;
+
+            // Responsive high-DPI scaling
+            const containerWidth = container ? container.clientWidth - 20 : 520;
+            const targetW = Math.max(300, Math.min(540, containerWidth));
+            const targetH = 240;
+
+            canvas.width = targetW;
+            canvas.height = targetH;
+
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width;
+            const H = canvas.height;
+            ctx.clearRect(0, 0, W, H);
+
+            const nFeat = state.featureCols.length;
+            const isMLP = state.algorithm === 'backprop';
+
+            const inX = Math.max(65, Math.min(95, W * 0.2));
+            const outX = W - inX;
+            const midX = W / 2;
+
+            const inputNodes = [];
+            for (let j = 0; j < nFeat; j++) {
+                const y = ((j + 1) / (nFeat + 1)) * (H - 24) + 12;
+                inputNodes.push({ x: inX, y, label: `X${j + 1}`, name: state.featureCols[j] });
+            }
+
+            const outNode = { x: outX, y: H / 2, label: 'ŷ' };
+
+            function drawWeightLine(p1, p2, w, showLabel = true) {
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                const mag = Math.min(Math.max(Math.abs(w) * 2.2, 1), 5.5);
+                ctx.lineWidth = mag;
+                ctx.strokeStyle = w >= 0
+                    ? (isDark ? 'rgba(52, 211, 153, 0.85)' : 'rgba(5, 150, 105, 0.75)')
+                    : (isDark ? 'rgba(251, 113, 133, 0.85)' : 'rgba(225, 29, 72, 0.75)');
+                ctx.stroke();
+
+                if (showLabel && W >= 380) {
+                    const mx = p1.x + (p2.x - p1.x) * 0.52;
+                    const my = p1.y + (p2.y - p1.y) * 0.52;
+                    ctx.fillStyle = isDark ? '#111827' : '#FFFFFF';
+                    ctx.fillRect(mx - 20, my - 7, 40, 14);
+                    ctx.fillStyle = isDark ? '#E2E8F0' : '#334155';
+                    ctx.font = '500 10px "Fira Code", monospace';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(w.toFixed(2), mx, my);
+                }
+            }
+
+            if (isMLP) {
+                const hiddenNodes = [];
+                for (let h = 0; h < state.mlpHiddenSize; h++) {
+                    const y = ((h + 1) / (state.mlpHiddenSize + 1)) * (H - 30) + 15;
+                    hiddenNodes.push({ x: midX, y, label: `H${h + 1}` });
+                }
+                inputNodes.forEach((inN, j) => {
+                    hiddenNodes.forEach((hN, h) => {
+                        drawWeightLine(inN, hN, state.mlpW1[h]?.[j] || 0, false);
+                    });
+                });
+                hiddenNodes.forEach((hN, h) => {
+                    drawWeightLine(hN, outNode, state.mlpW2[h] || 0, true);
+                });
+                hiddenNodes.forEach(hN => drawCircleNode(ctx, hN.x, hN.y, hN.label, isDark ? '#1F293D' : '#F8FAFC', isDark ? '#38BDF8' : '#1E3A5F', isDark ? '#F8FAFC' : '#0F172A'));
+            } else {
+                inputNodes.forEach((inN, j) => {
+                    drawWeightLine(inN, outNode, state.weights[j] || 0, nFeat <= 6 && W >= 400);
+                });
+            }
+
+            // Draw Input Nodes
+            inputNodes.forEach(inN => {
+                drawCircleNode(ctx, inN.x, inN.y, inN.label, isDark ? '#1E293B' : '#FFFFFF', isDark ? '#38BDF8' : '#1E3A5F', isDark ? '#F8FAFC' : '#0F172A');
+                ctx.fillStyle = isDark ? '#94A3B8' : '#475569';
+                ctx.font = '500 10px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                const shortName = inN.name.length > 10 ? inN.name.slice(0, 9) + '…' : inN.name;
+                ctx.fillText(shortName, inN.x - 20, inN.y);
+            });
+
+            // Draw Output Node
+            drawCircleNode(ctx, outNode.x, outNode.y, outNode.label, isDark ? '#0284C7' : '#1E3A5F', isDark ? '#38BDF8' : '#1E3A5F', '#FFFFFF');
+            ctx.fillStyle = isDark ? '#F8FAFC' : '#0F172A';
+            ctx.font = '600 11px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'left';
+            const shortTarget = state.targetCol.length > 12 ? state.targetCol.slice(0, 11) + '…' : state.targetCol;
+            ctx.fillText(shortTarget, outNode.x + 22, outNode.y - 6);
+            ctx.fillStyle = isDark ? '#94A3B8' : '#64748B';
+            ctx.font = '400 10px "Fira Code", monospace';
+            ctx.fillText(`b=${state.bias.toFixed(2)}`, outNode.x + 22, outNode.y + 8);
+        }
+
+        function drawCircleNode(ctx, x, y, text, fill, stroke, textColor = '#0F172A') {
+            ctx.beginPath();
+            ctx.arc(x, y, 15, 0, Math.PI * 2);
+            ctx.fillStyle = fill;
+            ctx.fill();
+            ctx.lineWidth = 1.75;
+            ctx.strokeStyle = stroke;
+            ctx.stroke();
+
+            ctx.fillStyle = textColor;
+            ctx.font = '600 10px "Fira Code", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+        }
+
+        // =========================================================================
+        // 4. STAGE 3: LIVE PREDICTION & TEST EVALUATION TABLE
+        // =========================================================================
+        function humanClassLabel(classVal) {
+            const raw = classVal === 1 ? state.positiveLabel : state.negativeLabel;
+            if (raw === 'tepat') return 'LULUS TEPAT WAKTU (tepat)';
+            if (raw === 'tidak tepat') return 'TIDAK TEPAT WAKTU (tidak tepat)';
+            if (raw === 'sangat memuaskan') return 'LULUS SANGAT MEMUASKAN';
+            if (raw === 'memuaskan') return 'LULUS MEMUASKAN';
+            return raw.toUpperCase();
+        }
+
+        function fillTestSampleByClass(targetClass) {
+            const pool = state.testSet.filter(x => x.target === targetClass);
+            const fallback = state.validSamples.filter(x => x.target === targetClass);
+            const list = pool.length > 0 ? pool : fallback;
+            if (list.length === 0) return;
+            state.samplePickCursor = ((state.samplePickCursor || 0) + 1) % list.length;
+            loadSampleIntoSimulator(list[state.samplePickCursor]);
+        }
+
+        function buildLivePredictionInputs() {
+            const container = document.getElementById('live-test-inputs');
+            container.innerHTML = '';
+
+            const sampleRef = state.testSet[0] || state.validSamples[0];
+            state.featureCols.forEach((col, j) => {
+                const minV = state.mins[j] !== undefined ? state.mins[j] : 0;
+                const maxV = state.maxs[j] !== undefined ? state.maxs[j] : 100;
+                const defaultVal = sampleRef ? sampleRef.rawInputs[j] : ((minV + maxV) / 2);
+                const stepVal = Number.isInteger(minV) && Number.isInteger(maxV) && (maxV - minV > 10) ? '1' : '0.05';
+
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="live-in-${j}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 truncate">
+                        <span class="font-mono text-navy-700 dark:text-sky-400">X${j + 1}</span> — ${col}
+                    </label>
+                    <input id="live-in-${j}" type="number" step="${stepVal}" value="${defaultVal}" oninput="runLivePrediction()" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 sm:py-2 text-xs font-mono tnum text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-700 dark:focus:ring-sky-500">
+                    <span class="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5 block truncate">Rentang: ${minV} s/d ${maxV}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function loadSampleIntoSimulator(sample) {
+            state.featureCols.forEach((_, j) => {
+                const el = document.getElementById(`live-in-${j}`);
+                if (el) el.value = sample.rawInputs[j];
+            });
+            runLivePrediction(sample);
+        }
+
+        function runLivePrediction(refSample = null) {
+            if (state.featureCols.length === 0) return;
+            const rawVals = state.featureCols.map((_, j) => {
+                const el = document.getElementById(`live-in-${j}`);
+                return el ? (parseFloat(el.value) || 0) : 0;
+            });
+
+            const normVals = rawVals.map((v, j) => {
+                if (state.normMode === 'raw') return v;
+                const span = state.maxs[j] - state.mins[j];
+                return span === 0 ? 0.5 : (v - state.mins[j]) / span;
+            });
+
+            const fwd = forwardPredict(normVals);
+            const badge = document.getElementById('pred-badge');
+            const detail = document.getElementById('pred-math-detail');
+
+            if (fwd.predClass === 1) {
+                badge.className = 'font-mono text-xs font-bold px-3 py-1 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
+                badge.innerText = `1 — ${humanClassLabel(1)}`;
+            } else {
+                badge.className = 'font-mono text-xs font-bold px-3 py-1 rounded bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800';
+                badge.innerText = `0 — ${humanClassLabel(0)}`;
+            }
+
+            let targetCompareHTML = '';
+            if (refSample) {
+                const match = refSample.target === fwd.predClass;
+                targetCompareHTML = `<div class="mt-1 pt-1 border-t border-slate-200/80 dark:border-slate-800 ${match ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">Sampel <b>${refSample.id}</b>: Target (t) = <b>${refSample.target} (${refSample.targetText})</b> → <b>${match ? '✓ Prediksi Sesuai Target' : '✗ Prediksi Meleset'}</b></div>`;
+            }
+
+            detail.innerHTML = `
+                <div>Input Ternormalisasi: [${normVals.map(n => n.toFixed(2)).join(', ')}]</div>
+                <div class="mt-0.5">Nilai Net (y_in): <b>${fwd.netInput.toFixed(4)}</b> | Skor Aktivasi: <b>${typeof fwd.rawOutput === 'number' ? fwd.rawOutput.toFixed(4) : fwd.rawOutput}</b></div>
+                ${targetCompareHTML}
+            `;
+        }
+
+        function setEvalSubset(mode) {
+            state.evalSubset = mode;
+            const btnTest = document.getElementById('btn-eval-test');
+            const btnTrain = document.getElementById('btn-eval-train');
+            if (mode === 'test') {
+                btnTest.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs';
+                btnTrain.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            } else {
+                btnTrain.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs';
+                btnTest.className = 'px-2.5 py-1 rounded-md font-medium transition cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            }
+            renderEvaluationTable();
+        }
+
+        function setEvalClassFilter(flt) {
+            state.evalClassFilter = flt;
+            ['all', 'pos', 'neg', 'err'].forEach(k => {
+                const btn = document.getElementById(`flt-eval-${k}`);
+                if (!btn) return;
+                if (k === flt) {
+                    btn.className = 'px-2 py-0.5 rounded-md font-semibold transition cursor-pointer bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs';
+                } else {
+                    const color = k === 'pos' ? 'text-emerald-700 dark:text-emerald-400' : (k === 'neg' ? 'text-rose-700 dark:text-rose-400' : 'text-slate-600 dark:text-slate-400');
+                    btn.className = `px-2 py-0.5 rounded-md font-medium transition cursor-pointer ${color} hover:bg-white/60 dark:hover:bg-slate-700`;
+                }
+            });
+            renderEvaluationTable();
+        }
+
+        function renderEvaluationTable() {
+            const subset = state.evalSubset === 'test' ? state.testSet : state.trainSet;
+            const ev = evaluateSubset(subset);
+
+            document.getElementById('eval-acc-pct').innerText = `${ev.accuracy.toFixed(1)}%`;
+            document.getElementById('cm-tp').innerText = ev.tp;
+            document.getElementById('cm-tn').innerText = ev.tn;
+            document.getElementById('cm-fp').innerText = ev.fp;
+            document.getElementById('cm-fn').innerText = ev.fn;
+            document.getElementById('eval-summary-text').innerText = `Ketepatan (${state.evalSubset === 'test' ? 'Data Uji' : 'Data Latih'}): ${ev.correct} benar dari ${ev.total} sampel (${ev.accuracy.toFixed(1)}%)`;
+
+            const posRows = ev.details.filter(r => r.pred === 1);
+            const negRows = ev.details.filter(r => r.pred === 0);
+            const errRows = ev.details.filter(r => !r.correct);
+
+            const elAll = document.getElementById('cnt-eval-all');
+            const elPos = document.getElementById('cnt-eval-pos');
+            const elNeg = document.getElementById('cnt-eval-neg');
+            const elErr = document.getElementById('cnt-eval-err');
+            if (elAll) elAll.innerText = ev.details.length;
+            if (elPos) elPos.innerText = posRows.length;
+            if (elNeg) elNeg.innerText = negRows.length;
+            if (elErr) elErr.innerText = errRows.length;
+
+            let filteredDetails = ev.details;
+            const activeFlt = state.evalClassFilter || 'all';
+            if (activeFlt === 'pos') filteredDetails = posRows;
+            else if (activeFlt === 'neg') filteredDetails = negRows;
+            else if (activeFlt === 'err') filteredDetails = errRows;
+
+            const thead = document.getElementById('eval-thead');
+            const tbody = document.getElementById('eval-tbody');
+
+            let hHTML = `<tr>
+                <th class="px-3 py-2 text-slate-700 dark:text-slate-300 whitespace-nowrap min-w-[50px] font-bold">#</th>
+                <th class="px-3 py-2 text-slate-800 dark:text-slate-100 whitespace-nowrap min-w-[120px] font-bold">${state.idCol.toUpperCase()}</th>`;
+            state.featureCols.forEach((f, j) => {
+                hHTML += `<th class="px-2.5 py-2 text-right text-slate-700 dark:text-slate-300 whitespace-nowrap min-w-[70px]">X${j + 1}</th>`;
+            });
+            hHTML += `
+                <th class="px-3 py-2 text-right text-slate-700 dark:text-slate-300 whitespace-nowrap min-w-[65px]">y_in</th>
+                <th class="px-3 py-2 text-center bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 whitespace-nowrap min-w-[120px]">Target Asli (t)</th>
+                <th class="px-3 py-2 text-center bg-navy-50 dark:bg-slate-800 text-navy-900 dark:text-sky-300 whitespace-nowrap min-w-[145px]">Prediksi JST (ŷ)</th>
+                <th class="px-3 py-2 text-center whitespace-nowrap min-w-[95px]">Ketepatan</th>
+            </tr>`;
+            thead.innerHTML = hHTML;
+
+            let bHTML = '';
+            filteredDetails.forEach((row, idx) => {
+                const origIdx = ev.details.indexOf(row);
+                const statusBadge = row.correct
+                    ? `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded text-[11px] font-semibold whitespace-nowrap bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">✓ Tepat</span>`
+                    : `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded text-[11px] font-semibold whitespace-nowrap bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700">✗ Meleset</span>`;
+
+                const predBadge = row.pred === 1
+                    ? `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded text-[11px] font-semibold whitespace-nowrap bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">1 (${state.positiveLabel})</span>`
+                    : `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded text-[11px] font-medium whitespace-nowrap bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700">0 (${state.negativeLabel})</span>`;
+
+                bHTML += `<tr onclick="selectEvalRow(${origIdx})" class="hover:bg-slate-100/80 dark:hover:bg-slate-800/60 cursor-pointer transition" title="Klik untuk menguji baris ini di simulator kiri">
+                    <td class="px-3 py-1.5 font-mono font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">${idx + 1}</td>
+                    <td class="px-3 py-1.5 font-mono font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">${row.item.id}</td>`;
+                row.item.rawInputs.forEach(v => {
+                    bHTML += `<td class="px-2.5 py-1.5 text-right font-mono text-slate-800 dark:text-slate-200 whitespace-nowrap">${Number.isInteger(v) ? v : v.toFixed(2)}</td>`;
+                });
+                bHTML += `
+                    <td class="px-3 py-1.5 text-right font-mono text-slate-700 dark:text-slate-300 whitespace-nowrap">${row.fwd.netInput.toFixed(2)}</td>
+                    <td class="px-3 py-1.5 text-center font-bold bg-slate-50/70 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 whitespace-nowrap">${row.actual} <span class="font-normal text-[11px] text-slate-600 dark:text-slate-400">(${row.item.targetText})</span></td>
+                    <td class="px-3 py-1.5 text-center bg-navy-50/30 dark:bg-slate-800/40 whitespace-nowrap min-w-[145px]">${predBadge}</td>
+                    <td class="px-3 py-1.5 text-center font-sans whitespace-nowrap">${statusBadge}</td>
+                </tr>`;
+            });
+            tbody.innerHTML = bHTML || `<tr><td colspan="${state.featureCols.length + 6}" class="p-6 text-center text-slate-400 font-sans">Tidak ada data pada filter ini.</td></tr>`;
+        }
+
+        function selectEvalRow(idx) {
+            const subset = state.evalSubset === 'test' ? state.testSet : state.trainSet;
+            if (subset[idx]) {
+                loadSampleIntoSimulator(subset[idx]);
+            }
+        }
+
+        // =========================================================================
+        // 5. CHART.JS, LOGS & NAVIGATION HELPERS
+        // =========================================================================
+        function initChart() {
+            const ctx = document.getElementById('errorChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Error Latih (MSE)',
+                            data: [],
+                            borderColor: '#E11D48',
+                            backgroundColor: 'rgba(225, 29, 72, 0.08)',
+                            borderWidth: 2,
+                            tension: 0.25,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Akurasi Uji (%)',
+                            data: [],
+                            borderColor: '#059669',
+                            backgroundColor: 'transparent',
+                            borderDash: [4, 4],
+                            borderWidth: 1.75,
+                            tension: 0.25,
+                            fill: false,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: {
+                            grid: { color: state.isDarkMode ? '#1F293D' : '#F1F5F9' },
+                            ticks: { color: state.isDarkMode ? '#94A3B8' : '#64748B', font: { family: 'Fira Code', size: 10 } }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: true,
+                            title: { display: true, text: 'MSE', color: '#E11D48', font: { size: 10, weight: 'bold' } },
+                            grid: { color: state.isDarkMode ? '#1F293D' : '#F1F5F9' },
+                            ticks: { color: state.isDarkMode ? '#94A3B8' : '#64748B', font: { family: 'Fira Code', size: 10 } }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Akurasi (%)', color: '#059669', font: { size: 10, weight: 'bold' } },
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#059669', font: { family: 'Fira Code', size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 }, color: state.isDarkMode ? '#E2E8F0' : '#334155' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function addChartPoint(epoch, mse, acc) {
+            if (!chartInstance) return;
+            chartInstance.data.labels.push(`Ep ${epoch}`);
+            chartInstance.data.datasets[0].data.push(Number(mse.toFixed(4)));
+            chartInstance.data.datasets[1].data.push(Number(acc.toFixed(1)));
+            chartInstance.update();
+        }
+
+        function resetChart() {
+            if (!chartInstance) return;
+            chartInstance.data.labels = [];
+            chartInstance.data.datasets[0].data = [];
+            chartInstance.data.datasets[1].data = [];
+            chartInstance.update();
+        }
+
+        function appendLog(msg) {
+            const box = document.getElementById('log-console');
+            const line = document.createElement('div');
+            line.textContent = msg;
+            box.appendChild(line);
+            box.scrollTop = box.scrollHeight;
+            document.getElementById('log-count').innerText = box.children.length;
+        }
+
+        function clearLogs() {
+            document.getElementById('log-console').innerHTML = '';
+            document.getElementById('log-count').innerText = '0';
+        }
+
+        function updateStatusPill(text, tone) {
+            const pill = document.getElementById('training-state-pill');
+            pill.innerText = text;
+            if (tone === 'success') {
+                pill.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
+            } else if (tone === 'active') {
+                pill.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-navy-50 dark:bg-sky-950/60 text-navy-700 dark:text-sky-300 border border-navy-100 dark:border-sky-800';
+            } else {
+                pill.className = 'px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700';
+            }
+        }
+
+        function goToStage(stageNum) {
+            state.activeStage = stageNum;
+            [1, 2, 3].forEach(n => {
+                const btn = document.getElementById(`nav-stage-${n}`);
+                const sec = document.getElementById(`section-stage-${n}`);
+                if (n === stageNum) {
+                    btn.className = 'stage-tab px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center sm:justify-start gap-1.5 cursor-pointer bg-navy-700 dark:bg-sky-500 text-white shadow-xs';
+                } else {
+                    btn.className = 'stage-tab px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center sm:justify-start gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800';
+                }
+                if (!state.showAllStages) {
+                    sec.classList.toggle('hidden', n !== stageNum);
+                } else {
+                    sec.classList.remove('hidden');
+                }
+            });
+
+            if (state.showAllStages) {
+                document.getElementById(`section-stage-${stageNum}`).scrollIntoView({ behavior: 'smooth' });
+            }
+            drawNeuralNetworkCanvas();
+        }
+
+        function toggleViewMode() {
+            state.showAllStages = !state.showAllStages;
+            const lbl = document.getElementById('lbl-view-mode');
+            if (lbl) {
+                lbl.innerText = state.showAllStages ? 'Semua Tahap' : 'Mode Fokus';
+            }
+            goToStage(state.activeStage);
+        }
+
+        function openTheoryModal() {
+            document.getElementById('theoryModal').classList.remove('hidden');
+        }
+        function closeTheoryModal() {
+            document.getElementById('theoryModal').classList.add('hidden');
+        }
+
+        window.addEventListener('resize', () => {
+            drawNeuralNetworkCanvas();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initChart();
+            parseCSVText(DEFAULT_CSV_RAW, 'dataset_mahasiswa.csv');
+            runFullTraining();
+        });
+    </script>
+</body>
+</html>

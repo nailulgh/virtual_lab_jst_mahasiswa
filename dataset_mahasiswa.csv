@@ -1,0 +1,223 @@
+no,nim,jenis_kelamin,agama,suku,fakultas,program_studi,tahun_masuk,tahun_yudisium,tahun_wisuda, ipk_yudisium , ips1 , ips2 , ips3 , ips4 , ipk(1-4) ,predikat_yudisium,status_bekerja,keterangan
+1,2015010003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.08 , 3.30 , 3.38 , 3.58 , 3.34 ,,mahasiswa,tidak tepat
+2,2015010004,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.63 , 3.60 , 3.62 , 3.59 , 3.61 ,,mahasiswa,tidak tepat
+3,2015010007,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 3.46 , 3.40 , 3.33 , 3.26 , 3.36 ,,mahasiswa,tidak tepat
+4,2015010010,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 2.88 , 2.90 , 3.86 , 3.58 , 3.31 ,,mahasiswa,tidak tepat
+5,2015010023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2021,2021, -   , 2.79 , 3.15 , -   , 3.21 , 2.29 ,,mahasiswa,tidak tepat
+6,2015020005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2015,2021,2021, -   , 3.55 , 3.41 , 3.58 , 2.00 , 3.14 ,,bekerja,tidak tepat
+7,2015030004,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.62 , 3.10 , 3.76 , 3.24 , 3.18 ,,mahasiswa,tidak tepat
+8,2015030008,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.10 , 3.29 , 3.62 , 3.48 , 3.37 ,,mahasiswa,tidak tepat
+9,2015030010,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.90 , 3.19 , 3.29 , 2.67 , 3.01 ,,mahasiswa,tidak tepat
+10,2015030015,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.71 , 3.00 , 3.38 , 3.14 , 3.06 ,,mahasiswa,tidak tepat
+11,2015030017,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.43 , 3.10 , 3.81 , 3.33 , 3.42 ,,bekerja,tidak tepat
+12,2015030020,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.43 , 3.29 , 3.48 , 3.57 , 3.44 ,,mahasiswa,tidak tepat
+13,2015040001,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 2.70 , 2.70 , 3.29 , 2.90 , 2.90 ,,mahasiswa,tidak tepat
+14,2015040002,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.74 , 3.65 , 3.53 , 3.75 , 3.67 ,,mahasiswa,tidak tepat
+15,2015040004,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.65 , 3.75 , 3.53 , 3.85 , 3.70 ,,mahasiswa,tidak tepat
+16,2015040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.17 , 2.75 , 3.29 , 3.15 , 3.09 ,,bekerja,tidak tepat
+17,2015040008,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.13 , 2.45 , 3.29 , 2.80 , 2.92 ,,bekerja,tidak tepat
+18,2015040015,laki-laki,islam,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.39 , 2.95 , 3.12 , 2.40 , 2.97 ,,bekerja,tidak tepat
+19,2015040019,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.17 , 2.50 , 3.24 , 3.15 , 3.02 ,,,tidak tepat
+20,2015040021,,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.22 , 3.00 , 3.29 , 3.05 , 3.14 ,,bekerja,tidak tepat
+21,2015040022,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.30 , 3.50 , 3.59 , 3.50 , 3.47 ,,mahasiswa,tidak tepat
+22,2015040024,perempuan,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 3.39 , 3.55 , 3.41 , 3.80 , 3.54 ,,mahasiswa,tidak tepat
+23,2015040025,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2021, -   , 2.96 , 3.25 , 3.12 , 3.10 , 3.11 ,,,tidak tepat
+24,2015070001,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.86 , 3.10 , 2.90 , 3.70 , 3.14 ,,mahasiswa,tidak tepat
+25,2015070002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.32 , 3.43 , 2.90 , 3.60 , 3.31 ,,bekerja,tidak tepat
+26,2015070003,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.36 , 3.57 , 3.25 , 3.75 , 3.48 ,,mahasiswa,tidak tepat
+27,2015070004,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.32 , 3.71 , 3.55 , 3.85 , 3.61 ,,bekerja,tidak tepat
+28,2015070006,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 2.29 , 2.10 , 3.35 , 2.63 ,,bekerja,tidak tepat
+29,2015070007,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 3.19 , 3.45 , 3.90 , 3.33 ,,bekerja,tidak tepat
+30,2015070010,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 3.00 , 2.52 , 2.40 , 3.35 , 2.82 ,,bekerja,tidak tepat
+31,2015070016,perempuan,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2015,2021,2021, -   , 2.77 , 2.86 , 2.40 , 2.55 , 2.65 ,,mahasiswa,tidak tepat
+32,2015090003,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.30 , 3.20 , 3.00 , 2.10 , 2.90 ,,,tidak tepat
+33,2015090004,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.10 , 3.15 , 3.25 , 2.05 , 2.89 ,,mahasiswa,tidak tepat
+34,2015090005,perempuan,,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.40 , 3.55 , 3.00 , 1.90 , 2.96 ,,,tidak tepat
+35,2015090006,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2022,2021, -   , 3.50 , 3.40 , 3.00 , 2.05 , 2.99 ,,bekerja,tidak tepat
+36,2015090008,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.40 , 3.80 , 3.50 , 2.05 , 3.19 ,,bekerja,tidak tepat
+37,2015090009,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.00 , 3.00 , 3.00 , 2.20 , 2.80 ,,mahasiswa,tidak tepat
+38,2015090010,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2015,2021,2021, -   , 3.30 , 3.55 , 3.60 , 1.95 , 3.10 ,,mahasiswa,tidak tepat
+39,2015100003,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 2.91 , 3.14 , 2.76 , 3.28 , 3.02 ,,mahasiswa,tidak tepat
+40,2015100004,perempuan,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 3.75 , 2.30 , 3.48 , 3.74 , 3.32 ,,bekerja,tidak tepat
+41,2015100005,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2015,2021,2021, -   , 3.36 , 3.82 , 3.62 , 3.39 , 3.55 ,,mahasiswa,tidak tepat
+42,2015030003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.52 , 3.00 , 3.62 , 3.33 , 3.12 ,,mahasiswa,tidak tepat
+43,2015030013,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.71 , 3.10 , 3.38 , 3.24 , 3.11 ,,mahasiswa,tidak tepat
+44,2015030018,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 3.14 , 3.29 , 3.43 , 3.76 , 3.41 ,,mahasiswa,tidak tepat
+45,2015030027,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2021, -   , 2.90 , 2.81 , 2.90 , 2.67 , 2.82 ,,,tidak tepat
+46,2015060017,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik informatika,2015,2021,2021, -   , 3.00 , 3.00 , 3.37 , 3.67 , 3.26 ,,mahasiswa,tidak tepat
+47,2015080002,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.24 , 3.16 , 2.85 , 3.55 , 3.20 ,,,tidak tepat
+48,2015080003,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.38 , 3.42 , 3.15 , 3.55 , 3.38 ,,,tidak tepat
+49,2015080004,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.19 , 3.16 , 3.45 , 3.40 , 3.30 ,,bekerja,tidak tepat
+50,2015080005,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.57 , 3.21 , 3.10 , 3.60 , 3.37 ,,,tidak tepat
+51,2015080009,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.43 , 3.11 , 3.25 , 3.25 , 3.26 ,,bekerja,tidak tepat
+52,2015080015,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2015,2021,2021, -   , 3.33 , 3.32 , 3.00 , 3.55 , 3.30 ,,bekerja,tidak tepat
+53,2015020002,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2015,2022,2022, 2.95 , 3.18 , 2.86 , 3.11 , 2.00 , 2.79 ,memuaskan,,tidak tepat
+54,2015040011,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2021,2022, 2.94 , 2.65 , 3.00 , 3.41 , 3.40 , 3.12 ,memuaskan,mahasiswa,tidak tepat
+55,2015040006,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2022,2022, 2.88 , 3.22 , 2.45 , 3.41 , 3.51 , 3.15 ,memuaskan,mahasiswa,tidak tepat
+56,2015010011,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,manajemen,2015,2022,2022, 3.12 , 2.96 , 2.80 , 3.71 , 3.16 , 3.16 ,sangat memuaskan,mahasiswa,tidak tepat
+57,2015030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2022,,,,,,,,mahasiswa,tidak tepat
+58,2015060001,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.19 , 3.10 , 2.90 , 3.58 , 3.52 , 3.28 ,sangat memuaskan,mahasiswa,tidak tepat
+59,2015060002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.31 , 3.10 , 3.30 , 3.47 , 3.43 , 3.33 ,sangat memuaskan,bekerja,tidak tepat
+60,2015060005,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.21 , 2.90 , 2.90 , 3.58 , 3.43 , 3.20 ,sangat memuaskan,mahasiswa,tidak tepat
+61,2015060007,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.41 , 3.65 , 3.55 , 3.63 , 3.48 , 3.58 ,sangat memuaskan,bekerja,tidak tepat
+62,2015060011,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik informatika,2015,2022,2022, 3.34 , 3.00 , 3.10 , 3.63 , 3.57 , 3.33 ,sangat memuaskan,mahasiswa,tidak tepat
+63,2015050002,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik mesin,2015,2022,2022, 2.92 , 2.81 , 3.38 , 2.10 , 3.60 , 2.97 ,memuaskan,mahasiswa,tidak tepat
+64,2015070019,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik sipil,2015,2022,2022, 3.08 , 2.82 , 3.10 , 3.00 , 2.65 , 2.89 ,sangat memuaskan,bekerja,tidak tepat
+65,2015030012,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2021,2022,,,,,,,,bekerja,tidak tepat
+66,2015030022,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2022,2023, 3.32 , 3.52 , 3.48 , 3.71 , 3.43 , 3.54 ,sangat memuaskan,mahasiswa,tidak tepat
+67,2015030001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2015,2022,2023, 2.79 , 2.52 , 2.62 , 3.81 , 2.43 , 2.85 ,memuaskan,mahasiswa,tidak tepat
+68,2015040009,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2015,2023,2023, 2.91 , 2.52 , 1.70 , -   , 2.10 , 1.58 ,memuaskan,mahasiswa,tidak tepat
+69,2016010001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2021,2021, -   , 3.36 , 2.85 , 2.24 , 2.85 , 2.83 ,,mahasiswa,tidak tepat
+70,2016010004,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2021,2021, -   , 3.68 , 3.65 , 3.14 , 3.15 , 3.41 ,,mahasiswa,tidak tepat
+71,2016020002,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.27 , 2.95 , -   , 2.90 , 2.28 ,,mahasiswa,tidak tepat
+72,2016020004,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.55 , 3.36 , -   , 3.15 , 2.52 ,,mahasiswa,tidak tepat
+73,2016020008,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 3.45 , 3.32 , -   , 3.65 , 2.61 ,,mahasiswa,tidak tepat
+74,2016020010,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2021,2021, -   , 2.91 , 3.27 , -   , 2.40 , 2.15 ,,mahasiswa,tidak tepat
+75,2016030018,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.71 , 3.52 , 3.57 , 3.82 , 3.66 ,,mahasiswa,tidak tepat
+76,2016030026,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.62 , 3.90 , 3.90 , 2.95 , 3.59 ,,mahasiswa,tidak tepat
+77,2016030027,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.62 , 3.62 , 3.81 , 4.00 , 3.76 ,,bekerja,tidak tepat
+78,2016040003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.39 , 3.90 , 3.06 , 3.40 , 3.44 ,,,tidak tepat
+79,2016040004,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.04 , 3.60 , 2.29 , 2.75 , 2.92 ,,,tidak tepat
+80,2016040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.91 , 2.50 , 2.59 , 3.50 , 2.88 ,,,tidak tepat
+81,2016040009,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.52 , 3.60 , 3.18 , 3.65 , 3.49 ,,mahasiswa,tidak tepat
+82,2016040010,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.87 , 3.75 , 2.88 , 3.25 , 3.19 ,,mahasiswa,tidak tepat
+83,2016040011,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.87 , 3.75 , 2.94 , 2.85 , 3.10 ,,bekerja,tidak tepat
+84,2016040016,laki-laki,,,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.83 , 3.90 , 2.18 , 2.75 , 2.92 ,,,tidak tepat
+85,2016040017,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.09 , 3.65 , 2.65 , 3.65 , 3.26 ,,mahasiswa,tidak tepat
+86,2016040019,laki-laki,protestan,,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.83 , 3.45 , 2.59 , 3.00 , 2.97 ,,mahasiswa,tidak tepat
+87,2016040021,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.70 , 3.75 , 3.18 , 3.75 , 3.60 ,,mahasiswa,tidak tepat
+88,2016040024,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.52 , 3.60 , 2.71 , 3.45 , 3.32 ,,mahasiswa,tidak tepat
+89,2016040030,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.91 , 3.75 , 3.18 , 3.60 , 3.36 ,,,tidak tepat
+90,2016040032,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 2.86 , 3.25 , 2.81 , 2.70 , 2.91 ,,,tidak tepat
+91,2016040035,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.74 , 3.70 , 3.41 , 3.85 , 3.68 ,,bekerja,tidak tepat
+92,2016040037,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2021, -   , 3.04 , 3.80 , 3.29 , 3.75 , 3.47 ,,mahasiswa,tidak tepat
+93,2016050004,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.90 , 3.57 , 2.90 , 3.10 , 3.37 ,,mahasiswa,tidak tepat
+94,2016050010,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.52 , 3.62 , 2.90 , 3.20 , 3.31 ,,mahasiswa,tidak tepat
+95,2016050012,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2021, -   , 3.38 , 3.24 , 2.81 , 3.10 , 3.13 ,,mahasiswa,tidak tepat
+96,2016070001,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 3.64 , 3.57 , 3.00 , 2.55 , 3.19 ,,bekerja,tidak tepat
+97,2016070004,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 2.86 , 3.90 , 1.90 , 2.00 , 2.67 ,,mahasiswa,tidak tepat
+98,2016070012,laki-laki,,non-oap,fakultas teknik dan pertanian,teknik sipil,2016,2021,2021, -   , 3.18 , 3.19 , 2.55 , 2.10 , 2.76 ,,mahasiswa,tidak tepat
+99,2016030002,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.43 , 3.19 , 3.00 , 3.24 ,,mahasiswa,tidak tepat
+100,2016030019,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.81 , 3.38 , 3.41 , 3.48 ,,mahasiswa,tidak tepat
+101,2016030025,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.81 , 3.52 , 3.57 , 3.68 , 3.65 ,,mahasiswa,tidak tepat
+102,2016030032,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.76 , 2.19 , 2.38 , 2.86 , 2.80 ,,,tidak tepat
+103,2016030047,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.33 , 3.81 , 3.71 , 3.64 , 3.62 ,,,tidak tepat
+104,2016030049,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.19 , 3.81 , 3.76 , 3.82 , 3.65 ,,,tidak tepat
+105,2016030052,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 2.52 , 0.30 , 2.47 , 2.25 , 1.89 ,,,tidak tepat
+106,2016030057,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.29 , 3.81 , 3.57 , 3.55 , 3.56 ,,,tidak tepat
+107,2016030066,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.52 , 3.81 , 3.57 , 3.73 , 3.66 ,,bekerja,tidak tepat
+108,2016030067,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2021, -   , 3.48 , 3.81 , 4.00 , 3.91 , 3.80 ,,bekerja,tidak tepat
+109,2016080018,perempuan,protestan,non-oap,fakultas teknik dan pertanian,teknik elektro,2016,2021,2021, -   , 3.48 , 3.47 , 3.15 , 3.60 , 3.43 ,,bekerja,tidak tepat
+110,2016100001,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.46 ,,,,,,sangat memuaskan,mahasiswa,tidak tepat
+111,2016100006,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.24 , 3.27 , 3.05 , 3.29 , 3.85 , 3.37 ,sangat memuaskan,mahasiswa,tidak tepat
+112,2016100004,perempuan,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.40 ,,,,,,sangat memuaskan,,tidak tepat
+113,2016100007,laki-laki,protestan,oap,fakultas teknik dan pertanian,agroteknologi,2016,2022,2022, 3.33 , 3.18 , 3.27 , 3.29 , 3.85 , 3.40 ,sangat memuaskan,mahasiswa,tidak tepat
+114,2016040023,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2022, 2.77 , 2.61 , 3.50 , 2.18 , 2.85 , 2.79 ,memuaskan,mahasiswa,tidak tepat
+115,2016040020,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2021,2022, 2.90 , 3.04 , 3.65 , 2.59 , 2.85 , 3.03 ,memuaskan,mahasiswa,tidak tepat
+116,2016010006,laki-laki,,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2022,2022, 3.16 , 3.14 , 3.00 , 3.14 , 3.15 , 3.11 ,sangat memuaskan,bekerja,tidak tepat
+117,2016010011,laki-laki,,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2022,2022, 3.18 , 3.64 , 3.00 , 3.14 , 3.15 , 3.23 ,sangat memuaskan,,tidak tepat
+118,2016030074,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.51 , 3.71 , 3.62 , 3.10 , 3.68 , 3.53 ,sangat memuaskan,,tidak tepat
+119,20160300048,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.81 , 3.48 , 2.52 , 2.48 , 2.27 , 2.69 ,memuaskan,,tidak tepat
+120,2016030038,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.14 , 3.19 , 3.10 , 3.10 , 3.68 , 3.27 ,sangat memuaskan,mahasiswa,tidak tepat
+121,2016030003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.34 ,,,,,,sangat memuaskan,,tidak tepat
+122,2016030004,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.29 , 3.14 , 3.62 , 3.19 , 3.09 , 3.26 ,sangat memuaskan,bekerja,tidak tepat
+123,2016030058,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.01 , 3.48 , 3.19 , 2.71 , 2.72 , 3.03 ,sangat memuaskan,,tidak tepat
+124,2016030023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.06 , 3.57 , 3.05 , 2.52 , 2.86 , 3.00 ,sangat memuaskan,mahasiswa,tidak tepat
+125,2016030053,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.17 , 3.48 , 2.71 , 3.00 , 3.27 , 3.12 ,sangat memuaskan,,tidak tepat
+126,2016030050,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.76 , 3.29 , 2.81 , 2.00 , 2.14 , 2.56 ,memuaskan,,tidak tepat
+127,2016030060,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 2.92 ,,,,,,memuaskan,,tidak tepat
+128,2016030031,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2021,2022, 3.21 , 3.52 , 3.52 , 3.29 , 3.18 , 3.38 ,sangat memuaskan,mahasiswa,tidak tepat
+129,2016050001,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik mesin,2016,2021,2022, 3.03 , 3.24 , 3.62 , 2.92 , 3.00 , 3.20 ,sangat memuaskan,mahasiswa,tidak tepat
+130,2016020009,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2016,2023,2023, 3.27 , 2.96 , 2.80 , 3.71 , 3.16 , 3.16 ,sangat memuaskan,mahasiswa,tidak tepat
+131,2016100006,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,agribisnis,2016,2023,2023, 3.24 , 3.27 , 3.05 , 3.29 , 3.85 , 3.37 ,sangat memuaskan,mahasiswa,tidak tepat
+132,2016030084,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.95 , 3.62 , 2.81 , -   , 2.86 , 2.32 ,memuaskan,mahasiswa,tidak tepat
+133,2016030071,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.03 , 3.67 , 2.90 , 2.81 , 2.64 , 3.01 ,sangat memuaskan,mahasiswa,tidak tepat
+134,2016030088,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.09 , 2.90 , 2.81 , 2.90 , 2.73 , 2.84 ,memuaskan,mahasiswa,tidak tepat
+135,2016030007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.60 , 3.57 , 2.10 , 2.10 , 2.68 , 2.61 ,memuaskan,mahasiswa,tidak tepat
+136,2016030029,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.06 , 3.57 , 3.52 , 2.90 , 3.00 , 3.25 ,sangat memuaskan,,tidak tepat
+137,2016030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.28 , 3.43 , 3.52 , 3.00 , 3.00 , 3.24 ,sangat memuaskan,mahasiswa,tidak tepat
+138,2016030043,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.92 , 3.57 , 2.90 , 3.10 , 2.91 , 3.12 ,memuaskan,,tidak tepat
+139,2016030072,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.90 , 3.52 , 3.19 , 2.81 , 2.23 , 2.94 ,memuaskan,mahasiswa,tidak tepat
+140,2016030069,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.87 , 3.57 , 3.00 , 2.62 , 2.00 , 2.80 ,memuaskan,mahasiswa,tidak tepat
+141,2016030013,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.81 , 3.67 , 2.76 , 2.10 , 2.95 , 2.87 ,memuaskan,mahasiswa,tidak tepat
+142,2016030040,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.50 , 3.67 , 3.52 , 3.81 , 3.68 , 3.67 ,sangat memuaskan,bekerja,tidak tepat
+143,2016030036,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.84 , 3.33 , 2.71 , 2.52 , 2.86 , 2.86 ,memuaskan,mahasiswa,tidak tepat
+144,2016030044,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.06 , 3.71 , 3.19 , 3.19 , 2.91 , 3.25 ,sangat memuaskan,,tidak tepat
+145,2016030080,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.36 , 3.33 , 3.52 , 3.81 , 3.18 , 3.46 ,sangat memuaskan,mahasiswa,tidak tepat
+146,2016030056,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.25 , 3.58 , 3.19 , 3.43 , 0.41 , 2.65 ,sangat memuaskan,,tidak tepat
+147,2016030078,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 3.29 , 3.33 , 3.33 , 3.00 , 3.14 , 3.20 ,sangat memuaskan,,tidak tepat
+148,2016030070,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2016,2023,2023, 2.90 , 3.29 , 2.71 , 2.71 , 2.91 , 2.91 ,memuaskan,mahasiswa,tidak tepat
+149,2016040036,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2022,2023, 2.77 , 2.83 , 3.50 , 2.59 , 3.00 , 2.98 ,memuaskan,,tidak tepat
+150,2016040001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2016,2023,2023, 3.10 , 3.43 , 3.70 , 2.94 , 3.20 , 3.32 ,sangat memuaskan,mahasiswa,tidak tepat
+151,2016010007,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2016,2023,2023, 3.17 , 3.82 , 3.65 , 3.14 , 3.15 , 3.44 ,sangat memuaskan,bekerja,tidak tepat
+152,2016060012,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2016,2023,2023, 3.28 , 3.57 , 3.70 , -   , 3.24 , 2.63 ,sangat memuaskan,mahasiswa,tidak tepat
+153,2016070014,laki-laki,katolik,oap,fakultas teknik dan pertanian,teknik sipil,2016,2023,2023, 2.94 , 2.68 , 3.52 , 2.68 , 3.52 , 3.10 ,memuaskan,mahasiswa,tidak tepat
+154,2017050005,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2021, -   , 2.52 , 2.86 , 2.33 , 2.95 , 2.67 ,,bekerja,tepat
+155,2017090002,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.32 , 3.20 , 3.50 , 3.00 , 3.00 , 3.18 ,sangat memuaskan,bekerja,tepat
+156,2017090002,perempuan,,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022,, 3.00 , 3.20 , 3.00 , 2.89 , 3.02 ,,bekerja,tepat
+157,2017090001,perempuan,protestan,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.32 , 3.20 , 3.50 , 3.00 , 3.00 , 3.18 ,sangat memuaskan,bekerja,tepat
+158,2017090002,perempuan,islam,non-oap,fakultas teknik dan pertanian,agribisnis,2017,2021,2022, 3.40 , 3.00 , 3.15 , 3.00 , 3.28 , 3.11 ,sangat memuaskan,bekerja,tepat
+159,2017020007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2022,2022, 3.33 , -   , 3.14 , 3.26 , 3.60 , 2.50 ,sangat memuaskan,,tidak tepat
+160,2017040005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 3.41 , 3.39 , 3.15 , 2.71 , 3.55 , 3.20 ,sangat memuaskan,,tidak tepat
+161,2017040007,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 3.23 , 3.09 , 3.25 , 2.65 , 3.25 , 3.06 ,sangat memuaskan,,tidak tepat
+162,2017040023,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2022,2022, 2.98 , 2.87 , 3.00 , 2.65 , 2.75 , 2.82 ,memuaskan,bekerja,tidak tepat
+163,2017010006,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2022,2022, 3.16 , 3.00 , 3.35 , 3.43 , 3.30 , 3.27 ,sangat memuaskan,mahasiswa,tidak tepat
+164,2017010008,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2022,2022, 2.91 , 2.86 , 3.25 , 2.81 , 2.70 , 2.91 ,memuaskan,,tidak tepat
+165,2017060003,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2017,2022,2022, 3.38 , -   , 3.20 , 3.00 , 3.75 , 2.49 ,sangat memuaskan,mahasiswa,tidak tepat
+166,2017050001,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2022, 3.29 , 3.75 , 3.48 , 3.19 , 3.45 , 3.47 ,sangat memuaskan,bekerja,tepat
+167,2017050002,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2017,2021,2022, 3.28 , 3.33 , 3.48 , 3.24 , 3.45 , 3.38 ,sangat memuaskan,bekerja,tepat
+168,2017090002,perempuan,islam,non-oap,fakultas teknik dan pertanian,teknik sipil,2017,2022,2022, 3.12 , 2.73 , 3.57 , 2.90 , 2.55 , 2.94 ,sangat memuaskan,mahasiswa,tidak tepat
+169,2017090012,perempuan,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2017,2022,2022, 3.13 , 3.41 , 3.57 , 2.90 , 2.55 , 3.11 ,sangat memuaskan,mahasiswa,tidak tepat
+170,2017020003,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.24 , -   , 3.73 , 3.21 , 1.50 , 2.11 ,sangat memuaskan,mahasiswa,tidak tepat
+171,2017020002,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.19 , -   , 3.41 , 2.89 , 1.50 , 1.95 ,sangat memuaskan,,tidak tepat
+172,2017020006,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2017,2023,2023, 3.12 , -   , 2.68 , 2.84 , 2.85 , 2.09 ,sangat memuaskan,bekerja,tidak tepat
+173,2017030015,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 2.63 , 2.67 , 2.81 , 2.29 , 2.14 , 2.48 ,memuaskan,,tidak tepat
+174,2017030034,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.01 , 3.00 , 3.00 , 2.71 , 3.23 , 2.99 ,sangat memuaskan,bekerja,tidak tepat
+175,2017030035,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.30 , 3.14 , 3.10 , 2.62 , 3.32 , 3.05 ,sangat memuaskan,,tidak tepat
+176,2017030036,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.12 , 2.86 , 3.00 , 2.71 , 3.18 , 2.94 ,sangat memuaskan,mahasiswa,tidak tepat
+177,2017030023,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.40 , 3.52 , 3.19 , 3.00 , 3.18 , 3.22 ,sangat memuaskan,mahasiswa,tidak tepat
+178,2017030033,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2023,2023, 3.08 , 2.76 , 2.81 , 2.71 , 3.09 , 2.84 ,sangat memuaskan,mahasiswa,tidak tepat
+179,2017030046,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.17 , 3.57 , 2.81 , 3.00 , 3.14 , 3.13 ,sangat memuaskan,mahasiswa,tidak tepat
+180,2017030022,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.39 , 3.57 , 3.48 , 3.19 , 3.59 , 3.46 ,sangat memuaskan,,tidak tepat
+181,2017030045,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 3.05 , 3.52 , 2.90 , 2.43 , 3.00 , 2.96 ,sangat memuaskan,bekerja,tidak tepat
+182,2017030041,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2017,2022,2023, 2.79 , 2.43 , 2.90 , 2.19 , 2.00 , 2.38 ,memuaskan,,tidak tepat
+183,2017040020,laki-laki,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.00 , 2.57 , 2.80 , 2.65 , 3.05 , 2.77 ,sangat memuaskan,mahasiswa,tidak tepat
+184,2017040006,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.01 , 2.74 , 2.70 , 2.76 , 2.35 , 2.64 ,sangat memuaskan,mahasiswa,tidak tepat
+185,2017040002,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.29 , 3.39 , 3.15 , 2.29 , 2.90 , 2.93 ,sangat memuaskan,mahasiswa,tidak tepat
+186,2017040021,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 2.79 , 2.83 , 2.90 , 2.65 , 2.55 , 2.73 ,memuaskan,bekerja,tidak tepat
+187,2017040013,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.15 , 3.48 , 2.95 , 3.06 , 3.05 , 3.14 ,sangat memuaskan,,tidak tepat
+188,2017040001,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.17 , 3.30 , 2.95 , 2.76 , 3.25 , 3.07 ,sangat memuaskan,,tidak tepat
+189,2017040019,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2017,2023,2023, 3.09 , 3.09 , 3.10 , 2.53 , 2.80 , 2.88 ,sangat memuaskan,,tidak tepat
+190,2017030023,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2023,2023, 2.89 , 3.00 , 3.20 , 3.43 , 3.30 , 3.23 ,memuaskan,mahasiswa,tidak tepat
+191,2017010001,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2017,2023,2023, 3.14 , 2.59 , 3.35 , 3.29 , 3.15 , 3.10 ,sangat memuaskan,bekerja,tidak tepat
+192,2017070014,laki-laki,protestan,oap,fakultas teknik dan pertanian,teknik sipil,2017,2023,2023, 3.02 , 2.50 , 2.86 , 2.35 , 2.00 , 2.43 ,sangat memuaskan,bekerja,tidak tepat
+193,2018020007,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2018,2023,2023, 3.39 , 3.33 , 2.75 , 3.47 , 0.45 , 2.50 ,sangat memuaskan,mahasiswa,tidak tepat
+194,2018020002,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2018,2023,2023, 3.17 , 2.52 , 2.63 , 2.68 , 3.00 , 2.71 ,sangat memuaskan,,tidak tepat
+195,2018090002,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,agribisnis,2018,2023,2023, 3.18 , 2.80 , 3.00 , 3.45 , 3.17 , 3.11 ,sangat memuaskan,bekerja,tidak tepat
+196,2018030009,laki-laki,katolik,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 3.12 , 2.67 , 3.00 , 2.90 , 2.68 , 2.81 ,sangat memuaskan,mahasiswa,tidak tepat
+197,2018030004,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 3.17 , 3.10 , 3.00 , 3.00 , 3.00 , 3.03 ,sangat memuaskan,mahasiswa,tidak tepat
+198,2018030012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023, 2.87 , 2.90 , 2.90 , 2.52 , 2.50 , 2.71 ,memuaskan,,tidak tepat
+199,2018030022,perempuan,islam,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2023,2023,, 2.81 , 2.48 , 2.71 , 3.00 , 2.75 ,,,tidak tepat
+200,2018030021,perempuan,,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 3.41 , 3.19 , 3.52 , 3.10 , 3.55 , 3.34 ,sangat memuaskan,bekerja,tepat
+201,2018030015,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 2.94 , 2.90 , 3.00 , 2.90 , 2.68 , 2.87 ,memuaskan,mahasiswa,tepat
+202,2018030010,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 2.91 , 3.33 , 3.09 , 3.45 , 3.20 , 3.27 ,memuaskan,bekerja,tepat
+203,2018030018,perempuan,protestan,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2018,2022,2023, 3.41 , 3.29 , 3.33 , 3.10 , 3.55 , 3.32 ,sangat memuaskan,bekerja,tepat
+204,2018040011,perempuan,katolik,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2018,2023,2023, 3.13 , 3.17 , 3.40 , 3.29 , 3.00 , 3.22 ,sangat memuaskan,mahasiswa,tidak tepat
+205,2018010001,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2018,2023,2023, 3.09 , 3.00 , 3.35 , 3.00 , 3.00 , 3.09 ,sangat memuaskan,mahasiswa,tidak tepat
+206,2018070006,laki-laki,katolik,non-oap,fakultas teknik dan pertanian,teknik sipil,2018,2023,2023, 3.08 , 2.64 , 2.67 , 2.50 , 2.00 , 2.45 ,sangat memuaskan,bekerja,tidak tepat
+207,2018050007,perempuan,,non-oap,fakultas teknik dan pertanian,teknik mesin,2018,2023,2023, 3.41 , 3.38 , 3.00 , 3.10 , 3.45 , 3.23 ,sangat memuaskan,mahasiswa,tidak tepat
+208,2018050004,laki-laki,,oap,fakultas teknik dan pertanian,teknik mesin,2018,2023,2023, 3.51 , 3.19 , 3.24 , 3.62 , 3.30 , 3.34 ,sangat memuaskan,bekerja,tidak tepat
+209,2019050010,laki-laki,islam,non-oap,fakultas teknik dan pertanian,teknik mesin,2019,2021,2022, 3.20 , 2.84 , 3.30 , 3.00 , 3.00 , 3.04 ,sangat memuaskan,bekerja,tepat
+210,2019020007,laki-laki,protestan,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.60 , 3.33 , 3.35 , 3.38 , 3.39 , 3.36 ,sangat memuaskan,bekerja,tepat
+211,2019020005,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.65 , 3.19 , 3.22 , 3.63 , 3.65 , 3.42 ,sangat memuaskan,bekerja,tepat
+212,2019020008,laki-laki,islam,non-oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.50 , 3.33 , 3.09 , 3.45 , 3.20 , 3.27 ,sangat memuaskan,bekerja,tepat
+213,2019020003,perempuan,islam,oap,fakultas ilmu sosial dan keguruan,ekonomi pembangunan,2019,2023,2023, 3.72 , 3.52 , 3.43 , 3.63 , 3.63 , 3.55 ,sangat memuaskan,bekerja,tepat
+214,2019030024,perempuan,katolik,non-oap,fakultas ilmu sosial dan keguruan,pgsd,2019,2023,2023, 3.85 , 3.62 , 3.52 , 3.62 , 3.55 , 3.58 ,sangat memuaskan,bekerja,tepat
+215,20190300009,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,pgsd,2019,2022,2023, 3.02 , 2.71 , 2.90 , 3.19 , 2.27 , 2.77 ,sangat memuaskan,mahasiswa,tepat
+216,20192001005,laki-laki,protestan,oap,fakultas ilmu sosial dan keguruan,manajemen,2019,2023,2023, 3.23 , 3.00 , 2.65 , 2.90 , 2.85 , 2.85 ,sangat memuaskan,bekerja,tepat
+217,2019060011,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2019,2023,2023, 3.47 , 3.57 , 3.45 , 3.00 , 3.00 , 3.26 ,sangat memuaskan,mahasiswa,tepat
+218,2019060012,laki-laki,protestan,non-oap,fakultas teknik dan pertanian,teknik informatika,2019,2023,2023, 3.42 , 3.57 , 3.45 , 3.00 , 3.00 , 3.26 ,sangat memuaskan,mahasiswa,tepat
+219,2020204011,perempuan,,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2020,2023,2023, 2.60 , 3.00 , 3.21 , -   , 3.87 , 2.52 ,memuaskan,,tepat
+220,2020204012,perempuan,protestan,oap,fakultas ilmu sosial dan keguruan,ilmu pemerintahan,2020,2023,2023, 2.66 , 3.00 , 3.21 , 1.41 , 3.87 , 2.87 ,memuaskan,bekerja,tepat
+221,2020201001,laki-laki,katolik,non-oap,fakultas ilmu sosial dan keguruan,manajemen,2020,2023,2023, 3.23 , -   , 2.21 , 2.17 , 2.75 , 1.78 ,sangat memuaskan,bekerja,tepat
+,,,,,,,,,,,,,,,,,,
