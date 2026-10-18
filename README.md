@@ -4,7 +4,7 @@
 > **Pengembang:** Muhammad Nailul Ghufron Majid  
 > **Institusi:** Jurusan Teknik Informatika, Fakultas Sains dan Teknologi, Universitas Islam Negeri Maulana Malik Ibrahim Malang  
 > **Mata Kuliah:** Kecerdasan Buatan (AI)  
-> **Live Demo:** [https://nailulgh.github.io/virtual-lab-jst-mahasiswa/](https://nailulgh.github.io/virtual-lab-jst-mahasiswa/)
+> **Live Demo:** [https://nailulgh.github.io/virtual-lab-jst-mahasiswa/](https://nailulgh.github.io/virtual_lab_jst_mahasiswa/)
 
 ---
 
@@ -96,7 +96,7 @@ Pengujian dilakukan atas **200 data valid** pada skenario **Prediksi Ketepatan W
 
 ### Cara 2: Live Demo Online via GitHub Pages
 Aplikasi ini dapat diakses secara langsung di browser tanpa instalasi melalui:  
-👉 **[https://nailulgh.github.io/virtual-lab-jst-mahasiswa/](https://nailulgh.github.io/virtual-lab-jst-mahasiswa/)**
+👉 **[https://nailulgh.github.io/virtual-lab-jst-mahasiswa/](https://nailulgh.github.io/virtual_lab_jst_mahasiswa/)**
 
 ---
 
